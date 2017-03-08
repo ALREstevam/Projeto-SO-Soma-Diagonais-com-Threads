@@ -16,5 +16,6 @@
 	<Files>
 		<File Name="main.c"/>
 		<File Name="matrixDymnAlloc.h"/>
+		<File Name="readme"/>
 	</Files>
 </Project>

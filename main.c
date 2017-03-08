@@ -6,7 +6,16 @@
 
 int main()
 {
+	MatrixDescriber mxDesc;
+	
+	mxDesc.m = 3;
+	mxDesc.n = 3;
+	
+	
+	createMatrix(&mxDesc);
+	//printMatrix(mxDesc);
 
+	return 0;
 }
 
 
