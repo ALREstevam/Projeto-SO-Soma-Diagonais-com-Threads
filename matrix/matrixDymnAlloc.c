@@ -1,43 +1,11 @@
-#ifndef matrixDymnAlloc
-#define matrixDymnAlloc
+#ifndef matrixDymnAlloc_C
+#define matrixDymnAlloc_C
+
 #include <stdlib.h>
-
-//Coordenadas
-typedef struct 
-{
-	int x, y;
-}CoordinatesXY;
-
-//ELEMENTO DA MATRIZ
-typedef struct 
-{
-	double value;
-	CoordinatesXY nextInMainDiagonal;
-	//int pos;
-	//XYCoordinates coord;
-	
-}MatrixElem;
-
-//DESCRITOR DE MATRIZ
-typedef struct 
-{
-	MatrixElem **matrix;
-	int m, n;
-}MatrixDescriber;
+#include <stdio.h>
+#include "../global.h"
 
 
-
-
-/*
-Matrizes.   Matrizes (bidimensionais) são implementadas como vetores de vetores. Uma matriz com m linhas e n colunas é um vetor cada um de cujos m elementos é um vetor de n elementos. O seguinte fragmento de código faz a alocação dinâmica de uma tal matriz:
-
-   int **M; 
-   int i;
-   M = malloc (m * sizeof (int *));
-   for (i = 0; i < m; ++i)
-      M[i] = malloc (n * sizeof (int));
-O elemento de M que está no cruzamento da linha i com a coluna j é denotado por M[i][j].
-*/
 
 
 /*=================================================================================
@@ -55,9 +23,7 @@ void createMatrix(MatrixDescriber *mxDesc){
 }
 
 //Inicializando a matriz
-void initializeMatrixElem(MatrixDescriber *mh){
 
-}
 
 void getNextElemInMainDiagonal(MatrixDescriber *mxDesc, CoordinatesXY *coords, int x, int y){
 	//O elemento não tem próxmo pois está fora da matriz
@@ -77,11 +43,29 @@ void getNextElemInMainDiagonal(MatrixDescriber *mxDesc, CoordinatesXY *coords, i
 	}
 }
 
+void initializeMatrixElem(MatrixDescriber *mxDesc){
+    int countM, countN;
+
+    for(countM = 0; countM < mxDesc->m; countM++){
+        for(countN = 0; countN < mxDesc->n; countN++){
+
+            //Setando valores como 0
+            mxDesc->matrix[countM][countN].value = 0;
+
+            //Setando coordenadas do elemento da diagonal (RETIRAR ?)
+            CoordinatesXY coord;
+            getNextElemInMainDiagonal(mxDesc, &coord, countM, countN);
+            mxDesc->matrix[countM][countN].nextInMainDiagonal.x = coord.x;
+            mxDesc->matrix[countM][countN].nextInMainDiagonal.y = coord.y;
+		}
+	}
+}
+
 
 /*=================================================================================
 							EXIBIÇÃO DA MATRIZ
 ==================================================================================*/
-void printMatrix(MatrixDescriber mxDesc){
+void printMatrix(MatrixDescriber mxDesc, int flag_mode){
 	int countM, countN;
 	
 	printf("\n");
@@ -89,7 +73,21 @@ void printMatrix(MatrixDescriber mxDesc){
 	
 	for(countM = 0; countM < mxDesc.m; countM++){
 		for(countN = 0; countN < mxDesc.n; countN++){
-			printf("[%2.1f]\t", mxDesc.matrix[countM][countM].value);
+			switch(flag_mode)
+			{
+			case 0:
+				printf("[%2.1f]\t",mxDesc.matrix[countM][countN].value);
+				break;
+			case 1:
+				printf("{(%d,%d):[%2.1f]}\t",countM, countN, mxDesc.matrix[countM][countN].value);
+				break;
+			case 2:
+				printf("(%d,%d)\t",countM, countN);
+				break;
+			default:
+				printf("[%2.1f]\t",mxDesc.matrix[countM][countN].value);
+				break;
+			}
 		}
 		printf("\n");
 	}
@@ -125,20 +123,18 @@ void setFillOrder(MatrixDescriber *mxDesc, float start){
 	
 	for(countM = 0; countM < mxDesc->m; countM++){
 		for(countN = 0; (countN < mxDesc->n); countN++){
-			start += 1;
 			
-			setMatrixValue(mxDesc, countM, countN, 1.0);
-			printf(" |(%d,%d)", countM, countN);
-			printf("->%2.2f| ", start);			
+			
+			setMatrixValue(mxDesc, countM, countN, start);
+			printf(" {(%d,%d)", countM, countN);
+			printf("->%2.2f} ", start);	
+			start += 1;		
 		}
 		printf("\n");
 	}
 	printf("\n");
 	
 }
-
-
-
 
 
 

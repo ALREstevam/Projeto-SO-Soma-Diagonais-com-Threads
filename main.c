@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
-#include "matrixDymnAlloc.h"
+#include "global.h"
+#include "matrix/matrixDymnAlloc.h"
 
 
 int main()
@@ -13,11 +14,11 @@ int main()
 	
 	createMatrix(&mxDesc);
 	
-	printf("[%p]\n", &mxDesc);
 	
 	//setFillRandom(&mxDesc);
 	setFillOrder(&mxDesc, 1.0);
-	printMatrix(mxDesc);
+	printMatrix(mxDesc, 2);
+
 	
 	return 0;
 }
