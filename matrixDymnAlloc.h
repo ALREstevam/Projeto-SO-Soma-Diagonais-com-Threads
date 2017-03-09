@@ -18,7 +18,7 @@ typedef struct
 	
 }MatrixElem;
 
-//APONTADOR PARA MATRIZ
+//DESCRITOR DE MATRIZ
 typedef struct 
 {
 	MatrixElem **matrix;
@@ -40,20 +40,18 @@ O elemento de M que está no cruzamento da linha i com a coluna j é denotado por 
 */
 
 
-
+/*=================================================================================
+							CRIAÇÃO DA MATRIZ
+==================================================================================*/
 
 //ALOCADOR DE MEMÓRIA E INICIALIZADOR DA MATRIZ
 void createMatrix(MatrixDescriber *mxDesc){
 	int count;
-	mxDesc->matrix = /*(MatrixElem * )*/ malloc(mxDesc->m * sizeof(MatrixElem));
+	mxDesc->matrix = malloc(mxDesc->m * sizeof(MatrixElem));
 	
 	for(count = 0; count < mxDesc->n; count++){
 		mxDesc->matrix[count] = (MatrixElem * ) malloc(mxDesc->n * sizeof(MatrixElem));
 	}
-	
-	mxDesc->matrix[5][5].value = 10;
-	
-	printf("%f", mxDesc->matrix[5][5].value);
 }
 
 //Inicializando a matriz
@@ -80,22 +78,66 @@ void getNextElemInMainDiagonal(MatrixDescriber *mxDesc, CoordinatesXY *coords, i
 }
 
 
+/*=================================================================================
+							EXIBIÇÃO DA MATRIZ
+==================================================================================*/
 void printMatrix(MatrixDescriber mxDesc){
 	int countM, countN;
-	int countBrakeRow = 0;
+	
+	printf("\n");
+	printf("\tMATRIZ\n");
+	
 	for(countM = 0; countM < mxDesc.m; countM++){
-		if(countBrakeRow == mxDesc.n){
-			countBrakeRow = 0;
-			printf("\n");
-		}
-		
 		for(countN = 0; countN < mxDesc.n; countN++){
-			printf("[%.2f]\t", mxDesc.matrix[countM][countM].value);
+			printf("[%2.1f]\t", mxDesc.matrix[countM][countM].value);
 		}
-
+		printf("\n");
 	}
+	printf("\n");
+}
+
+/*=================================================================================
+							FUNÇÕES DE SET
+==================================================================================*/
+//Inserir número em uma posição 
+int setMatrixValue(MatrixDescriber *mxDesc, int x, int y, float value){
+	if(mxDesc->matrix == NULL || mxDesc->m < 0 || mxDesc-> n < 0 || x > mxDesc->m || y > mxDesc->n){
+		return -1;
+	}else{
+		mxDesc->matrix[x][y].value = value;
+		return 0;
+	}
+}
+
+//Preencher com números randômicos
+void setFillRandom(MatrixDescriber *mxDesc){
+	int countM, countN;
+	for(countM = 0; countM < mxDesc->m; countM++){
+		for(countN = 0; countN < mxDesc->n; countN++){
+			mxDesc->matrix[countM][countN].value = rand();
+		}
+	}
+}
+
+//Preencher com números de forma ordenada
+void setFillOrder(MatrixDescriber *mxDesc, float start){
+	int countM, countN;
+	
+	for(countM = 0; countM < mxDesc->m; countM++){
+		for(countN = 0; (countN < mxDesc->n); countN++){
+			start += 1;
+			
+			setMatrixValue(mxDesc, countM, countN, 1.0);
+			printf(" |(%d,%d)", countM, countN);
+			printf("->%2.2f| ", start);			
+		}
+		printf("\n");
+	}
+	printf("\n");
 	
 }
+
+
 
 
 

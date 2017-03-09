@@ -7,14 +7,18 @@
 int main()
 {
 	MatrixDescriber mxDesc;
-	
+	mxDesc.matrix = NULL;
 	mxDesc.m = 3;
 	mxDesc.n = 3;
 	
-	
 	createMatrix(&mxDesc);
-	//printMatrix(mxDesc);
-
+	
+	printf("[%p]\n", &mxDesc);
+	
+	//setFillRandom(&mxDesc);
+	setFillOrder(&mxDesc, 1.0);
+	printMatrix(mxDesc);
+	
 	return 0;
 }
 
