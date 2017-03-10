@@ -2,7 +2,7 @@
 <Project>
 	<Libs Value=""/>
 	<Flags Value=""/>
-	<Target Value="projThreads.exe"/>
+	<Target Value="PthreadTest.exe"/>
 	<CommandLine Value=""/>
 	<CompilerOptions Value="-Wall -s"/>
 	<DeleteObjectsBefore Value="Yes"/>
@@ -14,18 +14,6 @@
 	<CompilerType Value="C"/>
 	<AppType Value="CONSOLE"/>
 	<Files>
-		<Folder Name="files">
-			<File Name="matrixInput.h"/>
-			<File Name="matrixInput.c"/>
-		</Folder>
-		<File Name="global.h"/>
 		<File Name="main.c"/>
-		<Folder Name="dataStructures">
-			<File Name="arrayDymnAlloc.c"/>
-			<File Name="matrixDymnAlloc.h"/>
-			<File Name="matrixDymnAlloc.c"/>
-			<File Name="arrayDymnAlloc.h"/>
-			<File Name="quequeDymnAlloc.c"/>
-		</Folder>
 	</Files>
 </Project>

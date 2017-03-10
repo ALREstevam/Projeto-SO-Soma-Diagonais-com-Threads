@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../global.h"
+#include "arrayDymnAlloc.h"
 
 
 
@@ -13,13 +14,21 @@
 ==================================================================================*/
 
 //ALOCADOR DE MEMÓRIA E INICIALIZADOR DA MATRIZ
-void createMatrix(MatrixDescriber *mxDesc){
+int createMatrix(MatrixDescriber *mxDesc){
 	int count;
 	mxDesc->matrix = malloc(mxDesc->m * sizeof(MatrixElem));
 	
+	if(mxDesc->matrix == NULL){
+		return -1;
+	}
+	
 	for(count = 0; count < mxDesc->n; count++){
 		mxDesc->matrix[count] = (MatrixElem * ) malloc(mxDesc->n * sizeof(MatrixElem));
+		if(mxDesc->matrix[count] == NULL){
+			return -1;
+		}
 	}
+	return 0;
 }
 
 //Inicializando a matriz
@@ -94,6 +103,13 @@ void printMatrix(MatrixDescriber mxDesc, int flag_mode){
 	printf("\n");
 }
 
+void printMatrixInfo(MatrixDescriber mxDesc){
+	printf("Size (elements): %d\n", mxDesc.m * mxDesc.n);
+	printf("Size (bytes in memory): %d\n", mxDesc.m * mxDesc.n * sizeof(MatrixElem));
+	printf("m: %d\n", mxDesc.m);
+	printf("n: %d\n", mxDesc.n);
+}
+
 /*=================================================================================
 							FUNÇÕES DE SET
 ==================================================================================*/
@@ -123,11 +139,7 @@ void setFillOrder(MatrixDescriber *mxDesc, float start){
 	
 	for(countM = 0; countM < mxDesc->m; countM++){
 		for(countN = 0; (countN < mxDesc->n); countN++){
-			
-			
 			setMatrixValue(mxDesc, countM, countN, start);
-			printf(" {(%d,%d)", countM, countN);
-			printf("->%2.2f} ", start);	
 			start += 1;		
 		}
 		printf("\n");
@@ -135,6 +147,24 @@ void setFillOrder(MatrixDescriber *mxDesc, float start){
 	printf("\n");
 	
 }
+
+
+/*=================================================================================
+						CÁLCULO DA SOMA DE UMA DIAGONAL
+==================================================================================*/
+void diagonalFirstPositionToArray(MatrixDescriber *mxDesc, ArrayDescriber *arrDesc){
+	arrDesc->size = (mxDesc->m + mxDesc->n) - 1;
+	createArray(arrDesc);
+	
+	int count;
+	for(count = 0){
+		
+	}
+	
+	
+	
+}
+
 
 
 

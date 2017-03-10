@@ -21,6 +21,19 @@ typedef struct matrix_elem
 typedef struct matrix_describer
 {
 	MatrixElem **matrix;
-	int m, n;
+	unsigned int m, n;
 }MatrixDescriber;
 #endif
+
+
+typedef struct array_elem{
+	float value;
+}ArrayElem;
+
+//DESCRITOR DE ARRAY
+typedef struct array_describer
+{
+	ArrayElem *array;
+	unsigned int size;
+	unsigned int top;
+}ArrayDescriber;

@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="main.c" Top="No" Tabpos="1" TopLine="1">
-			<Cursor Line="19" Column="29"/>
+		<File Name="main.c" Top="No" Tabpos="1" TopLine="16">
+			<Cursor Line="28" Column="14"/>
 		</File>
-		<File Name="matrixDymnAlloc.h" Top="Yes" Tabpos="2" TopLine="1">
-			<Cursor Line="117" Column="36"/>
+		<File Name="dataStructures\matrixDymnAlloc.h" Top="No" Tabpos="2" TopLine="1">
+			<Cursor Line="11" Column="25"/>
 		</File>
-		<File Name="readme" Top="No" Tabpos="3" TopLine="1">
-			<Cursor Line="1" Column="52"/>
+		<File Name="dataStructures\matrixDymnAlloc.c" Top="No" Tabpos="3" TopLine="145">
+			<Cursor Line="145" Column="16"/>
+		</File>
+		<File Name="dataStructures\arrayDymnAlloc.c" Top="No" Tabpos="4" TopLine="59">
+			<Cursor Line="80" Column="7"/>
+			<Selection Line="1" Column="1"/>
+		</File>
+		<File Name="dataStructures\arrayDymnAlloc.h" Top="No" Tabpos="5" TopLine="1">
+			<Cursor Line="8" Column="41"/>
+		</File>
+		<File Name="dataStructures\quequeDymnAlloc.c" Top="Yes" Tabpos="6" TopLine="1">
+			<Cursor Line="80" Column="7"/>
 		</File>
 	</Files>
+	<Folders>
+		<Folder Name="files" Expanded="Yes"/>
+		<Folder Name="dataStructures" Expanded="Yes"/>
+	</Folders>
 </Layout>
