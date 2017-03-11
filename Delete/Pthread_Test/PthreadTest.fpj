@@ -3,7 +3,7 @@
 	<Libs Value=""/>
 	<Flags Value=""/>
 	<Target Value="PthreadTest.exe"/>
-	<CommandLine Value=""/>
+	<CommandLine Value="gcc -IC:/MinGW/include/ test.cpp -lpthread"/>
 	<CompilerOptions Value="-Wall -s"/>
 	<DeleteObjectsBefore Value="Yes"/>
 	<DeleteObjectsAfter Value="Yes"/>

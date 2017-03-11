@@ -1,5 +1,9 @@
 #ifndef global_C
-#define glogal_C
+#define global_C
+
+#include <pthread.h>
+
+
 //Coordenadas
 typedef struct coordinates_x_y
 {
@@ -23,17 +27,32 @@ typedef struct matrix_describer
 	MatrixElem **matrix;
 	unsigned int m, n;
 }MatrixDescriber;
-#endif
 
 
-typedef struct array_elem{
-	float value;
-}ArrayElem;
 
-//DESCRITOR DE ARRAY
-typedef struct array_describer
-{
-	ArrayElem *array;
-	unsigned int size;
+typedef union variables{
+	float flt; //resultado da soma de cada diagonal
+	CoordinatesXY coords; //Indicadores de primeiro elemento da diagonal
+ 	pthread_t tid; //id da thread
+	
+}Var;
+
+typedef struct variabledescriber{
+	Var *var;
 	unsigned int top;
+	unsigned int size;
+	char dataType[3];
 }ArrayDescriber;
+
+
+
+//Argumentos para uso de threads
+typedef struct targs
+{
+	MatrixDescriber mx;//Matriz
+	ArrayDescriber diagonals;//Diagonais a calcular
+	ArrayDescriber *sums;//Onde o resultado será guardado
+	
+}TArgs;
+
+#endif

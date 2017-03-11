@@ -3,10 +3,10 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <time.h>
 #include "../global.h"
 #include "arrayDymnAlloc.h"
-
-
 
 
 /*=================================================================================
@@ -16,16 +16,31 @@
 //ALOCADOR DE MEMÓRIA E INICIALIZADOR DA MATRIZ
 int createMatrix(MatrixDescriber *mxDesc){
 	int count;
-	mxDesc->matrix = malloc(mxDesc->m * sizeof(MatrixElem));
 	
+	if(mxDesc->m <= 0 || mxDesc->n <= 0){
+		return -2;
+	}
+	
+	
+	//LINHAS
+	
+	//Alocando array de ponteiros para array de struct
+	mxDesc->matrix = (MatrixElem ** ) malloc((mxDesc->m) * (sizeof(MatrixElem *)));
+	
+	//Verificando se alocado com sucesso
 	if(mxDesc->matrix == NULL){
 		return -1;
 	}
 	
-	for(count = 0; count < mxDesc->n; count++){
-		mxDesc->matrix[count] = (MatrixElem * ) malloc(mxDesc->n * sizeof(MatrixElem));
+	//COLUNAS
+	
+	for(count = 0; count < mxDesc->m; count++){
+		//Alocando array que representa coluna
+		mxDesc->matrix[count] = (MatrixElem * ) malloc((mxDesc->n) * (sizeof(MatrixElem)));
+		
+		//Verificando se foi alocado
 		if(mxDesc->matrix[count] == NULL){
-			return -1;
+			return count * (-1);//Retorna: - <nº do elemento com erro>
 		}
 	}
 	return 0;
@@ -93,6 +108,11 @@ void printMatrix(MatrixDescriber mxDesc, int flag_mode){
 			case 2:
 				printf("(%d,%d)\t",countM, countN);
 				break;
+			case 3:
+				if(mxDesc.matrix[countM] == NULL){
+					printf("Erro em: %d,%d \n", countM, countN);
+				}
+				break;
 			default:
 				printf("[%2.1f]\t",mxDesc.matrix[countM][countN].value);
 				break;
@@ -104,10 +124,13 @@ void printMatrix(MatrixDescriber mxDesc, int flag_mode){
 }
 
 void printMatrixInfo(MatrixDescriber mxDesc){
-	printf("Size (elements): %d\n", mxDesc.m * mxDesc.n);
-	printf("Size (bytes in memory): %d\n", mxDesc.m * mxDesc.n * sizeof(MatrixElem));
-	printf("m: %d\n", mxDesc.m);
-	printf("n: %d\n", mxDesc.n);
+	printf("\n\n=================== INFORMACOES SOBRE MATRIZ ===================\n");
+	printf("Size (elements):           %d\n", mxDesc.m * mxDesc.n);
+	printf("Size (memory):             %d bytes\n", mxDesc.m * mxDesc.n * sizeof(MatrixElem));
+	printf("Size (each element):       %d bytes\n", sizeof(MatrixElem));
+	printf("m ou x (linhas):           %d\n", mxDesc.m);
+	printf("n ou y (colunas):          %d\n", mxDesc.n);
+	printf("================================================================\n\n");
 }
 
 /*=================================================================================
@@ -126,9 +149,14 @@ int setMatrixValue(MatrixDescriber *mxDesc, int x, int y, float value){
 //Preencher com números randômicos
 void setFillRandom(MatrixDescriber *mxDesc){
 	int countM, countN;
+	if(mxDesc->matrix == NULL){
+		return;
+	}
+	
 	for(countM = 0; countM < mxDesc->m; countM++){
 		for(countN = 0; countN < mxDesc->n; countN++){
-			mxDesc->matrix[countM][countN].value = rand();
+			
+			mxDesc->matrix[countM][countN].value = rand()%100;
 		}
 	}
 }
@@ -148,21 +176,59 @@ void setFillOrder(MatrixDescriber *mxDesc, float start){
 	
 }
 
+//Preencher todos os elementos com um mesmo valor
+void setFillAll(MatrixDescriber *mxDesc, float value){
+	int countM, countN;
+	
+	for(countM = 0; countM < mxDesc->m; countM++){
+		for(countN = 0; (countN < mxDesc->n); countN++){
+			setMatrixValue(mxDesc, countM, countN, value);	
+		}
+		printf("\n");
+	}
+	printf("\n");
+	
+}
 
 /*=================================================================================
 						CÁLCULO DA SOMA DE UMA DIAGONAL
 ==================================================================================*/
-void diagonalFirstPositionToArray(MatrixDescriber *mxDesc, ArrayDescriber *arrDesc){
+int mainDiagonalStartToStack(MatrixDescriber *mxDesc, ArrayDescriber *arrDesc){
 	arrDesc->size = (mxDesc->m + mxDesc->n) - 1;
-	createArray(arrDesc);
+	strcpy(arrDesc->dataType, "cxy");
 	
-	int count;
-	for(count = 0){
-		
+	if(createArray(arrDesc) < 0){
+		return -1;
 	}
 	
+	CoordinatesXY coord;
+	Var vr;
+	int count;
+
+	//Processando linhas
+	for(count = 0; (count < mxDesc->m) ; count++){
+		coord.x = count;
+		coord.y = 0;
+		
+		vr.coords = coord;
+		
+		//printf("(%d, %d)", coord.x, coord.y);
+		
+		addElementArrayAsStack(arrDesc, vr);
+	}
+	
+	//Processando colunas
+	for(count = 1; (count < mxDesc->n); count++){
+		coord.x = mxDesc->m -1;
+		coord.y = count;
+		//printf("(%d, %d);  ", coord.x, coord.y);
+		vr.coords = coord;
+		addElementArrayAsStack(arrDesc, vr);
+	}
+
 	
 	
+	return 0;
 }
 
 

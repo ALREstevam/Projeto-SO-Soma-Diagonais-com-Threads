@@ -21,11 +21,13 @@
 		<File Name="global.h"/>
 		<File Name="main.c"/>
 		<Folder Name="dataStructures">
-			<File Name="arrayDymnAlloc.c"/>
+			<File Name="stackDymnAlloc.h"/>
+			<File Name="stackDymnAlloc.c"/>
 			<File Name="matrixDymnAlloc.h"/>
 			<File Name="matrixDymnAlloc.c"/>
 			<File Name="arrayDymnAlloc.h"/>
-			<File Name="quequeDymnAlloc.c"/>
+			<File Name="arrayDymnAlloc.c"/>
+			<File Name="dymns.c"/>
 		</Folder>
 	</Files>
 </Project>
