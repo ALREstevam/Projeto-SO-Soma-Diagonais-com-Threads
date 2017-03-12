@@ -214,7 +214,7 @@ int mainDiagonalStartToStack(MatrixDescriber *mxDesc, ArrayDescriber *arrDesc){
 		
 		//printf("(%d, %d)", coord.x, coord.y);
 		
-		addElementArrayAsStack(arrDesc, vr);
+		addElementOnTop(arrDesc, vr);
 	}
 	
 	//Processando colunas
@@ -223,7 +223,7 @@ int mainDiagonalStartToStack(MatrixDescriber *mxDesc, ArrayDescriber *arrDesc){
 		coord.y = count;
 		//printf("(%d, %d);  ", coord.x, coord.y);
 		vr.coords = coord;
-		addElementArrayAsStack(arrDesc, vr);
+		addElementOnTop(arrDesc, vr);
 	}
 
 	

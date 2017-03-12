@@ -49,8 +49,8 @@ typedef struct variabledescriber{
 //Argumentos para uso de threads
 typedef struct targs
 {
-	MatrixDescriber mx;//Matriz
-	ArrayDescriber diagonals;//Diagonais a calcular
+	MatrixDescriber *mx;//Matriz
+	ArrayDescriber *diagonals;//Diagonais a calcular
 	ArrayDescriber *sums;//Onde o resultado será guardado
 	
 }TArgs;

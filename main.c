@@ -11,8 +11,31 @@
 void * sumDiagonals(void *arg){
 	TArgs *infoData = (TArgs*) arg;
 	
-	float
+	float result;
+	CoordinatesXY pos;
+	Var vr, rsp;
 	
+	while(infoData->diagonals->top > 0){
+		vr = removeElementOnTop(infoData->diagonals);
+		pos = vr.coords;
+		
+		result = infoData->mx->matrix[pos.x][pos.y].value;
+		
+		do{
+			pos.x =  infoData->mx->matrix[pos.x][pos.y].nextInMainDiagonal.x;
+			pos.y =  infoData->mx->matrix[pos.x][pos.y].nextInMainDiagonal.y;
+			
+			result +=  infoData->mx->matrix[pos.x][pos.y].value;
+		}while(pos.x < 0 || pos.y  < 0);	
+		
+			rsp.flt = result;
+			addElementOnTop(infoData->sums, rsp);
+	}
+	
+	
+	
+	pthread_exit(NULL);
+	return NULL;
 }
 
 
@@ -101,8 +124,8 @@ int main(){
 	
 	//Criando fila para armazenar os índices dos elementos da matriz que são início de diagonal
 	ArrayDescriber resultStack;
-	arr.size = ((mxDesc.m) + (mxDesc.n)) - 1;
-	strcpy(arr.dataType, "cxy");
+	resultStack.size = ((mxDesc.m) + (mxDesc.n)) - 1;
+	strcpy(resultStack.dataType, "cxy");
 	printf("ALOCANDO PILHA DE OPERACOES...............: ");
 	
 	result = createArray(&resultStack);
@@ -120,14 +143,26 @@ int main(){
 	
 	
 	//Criando arrays para armazenar informações sobre as threads
+	ArrayDescriber tidArr;
+	tidArr.
 	
-	/*
-	pthread_t	tid[tAmount];
-	pthread_attr_t attr;
-	pthread_attr_init(&attr);
+	
+	
+	TArgs args;
+	args.mx = &mxDesc;
+	args.diagonals = &arr;
+	args.sums = &resultStack;
+	
+	pthread_attr_t = attr;
+	
+	int i;
+	for(i = 0; i < tAmount; i++){
+		pthread_attr_init(&attr);
+		pthread_create(&tid, &attr, sumDiagonals, &args);
+	}
 
-	pthread_create(&tid, &attr, mainDiagonalsSumRunner, &limit);
-	*/
+	
+	
 	return 0;
 }
 

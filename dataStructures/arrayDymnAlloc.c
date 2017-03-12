@@ -8,6 +8,7 @@
 
 void initializeArray(ArrayDescriber *arrDesc);
 void printVar(Var var, char dataType[3], int ident);
+Var getTopElement(ArrayDescriber *arrDesc);
 
 /*=================================================================================
 							CRIAÇÃO DO ARRAY
@@ -58,7 +59,7 @@ int resizeArray(ArrayDescriber *arrDesc, unsigned int newsize){
 ==================================================================================*/
 	/* TRATANDO O ARRAY COMO UMA PILHA */
 	//Acidionar na pilha
-void addElementArrayAsStack(ArrayDescriber *arrDesc, Var elem){
+void addElementOnTop(ArrayDescriber *arrDesc, Var elem){
 	if(arrDesc->top == arrDesc->size){
 		resizeArray(arrDesc, arrDesc->size + 5);
 	}
@@ -68,8 +69,10 @@ void addElementArrayAsStack(ArrayDescriber *arrDesc, Var elem){
 }
 
 	//Remover da pilha
-void removeElementArrayAsStack(ArrayDescriber *arrDesc){
+Var removeElementOnTop(ArrayDescriber *arrDesc){
+	Var vr = getTopElement(arrDesc);
 	arrDesc->top -= 1;
+	return vr;
 }	
 	
 	//Acessar o topo
