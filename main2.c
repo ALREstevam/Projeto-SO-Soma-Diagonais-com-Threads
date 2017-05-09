@@ -25,7 +25,7 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
-int main(){
+int main(){	
 	int roundsperthread=50; 
 	double med = 0;
 	int numT = 128;
@@ -136,8 +136,10 @@ int main(){
 			///////
 			
 			med += elapsedTime;
+			
 		}
-		printf("%d - %lf\n",i, med/(double)roundsperthread);
+		//printf("%d - %lf\n",i, med/(double)roundsperthread);
+		appendToMedFile("out2.csv", i, med);
 		med = 0;
 	}
 

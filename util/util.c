@@ -28,8 +28,7 @@ void executionDataToCSV(ExecutionData exd, char * fileName){
 	
 	strsubstchar(str, '.', ',');
 	
-	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.
-	diags, exd.numThreads);
+	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.diags, exd.numThreads);
 	fclose(csvData);
 }
 
@@ -46,7 +45,17 @@ void pause(){
 	getchar();
 }
 
-
+void appendToMedFile(char * filename, int threads, double time){
+	FILE * fl = fopen(filename, "a+");
+	
+	char str[10];
+	sprintf(str, "%.2lf", time);
+	strsubstchar(str, '.', ',');
+	fprintf(fl, "%d;%s\n",threads, str);
+	
+	fclose(fl);
+	
+}
 
 
 
