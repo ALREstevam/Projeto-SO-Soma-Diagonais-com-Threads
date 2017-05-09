@@ -25,16 +25,14 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
-int main(){
+int nomain(){
 	time_t tStart, tEnd;
 	double elapsedTime;
 	int auxm, auxn;
 	int numThreads;
 	
 	//generateRandomFloatFile("in.txt", 5000000);
-	
-	
-	
+
 	//Se variável ativada vai requerir dados do usuário, caso contrário vai rodar com os valores default
 	if(getInputFromUser){
 		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
@@ -104,15 +102,15 @@ int main(){
         printf("Soma da diagonal %d = [%.2f]\n",i, rspArr.data[i].dt.rsp);
     }
     
+    printf("*");
     arrayFloatToFile(rspArr, "out.txt");
-    	
-    	
-    	
-    	
+    	printf("*");
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
+ 	printf("*");
  	deleteArray(&rspArr);
- 	deleteArray(&tidArr);
+ 	
+	deleteArray(&tidArr);
  	free(tinfoptr);
 
 	 
