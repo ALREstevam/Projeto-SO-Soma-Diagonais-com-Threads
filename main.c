@@ -23,6 +23,7 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "dataStructures/array/arrayMngr.h"//Biblioteca para gerenciar o tipo de vetor usado
 #include "dataStructures/matrix/matrixMngr.h"//Biblioteca para gerenciar o tipo de matriz usada
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
+#include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
 int main(){
 	time_t tStart, tEnd;
@@ -30,25 +31,24 @@ int main(){
 	int auxm, auxn;
 	int numThreads;
 	
+	//generateRandomFloatFile("in.txt", 5000000);
+	
+	
+	
 	//Se variável ativada vai requerir dados do usuário, caso contrário vai rodar com os valores default
 	if(getInputFromUser){
-		printf("Digite os seguintes valores:\n<linhas> <colunas> <numero de threads>\n");
+		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
 		
 		scanf("%d %d %d",&auxm, &auxn, &numThreads);
-		getchar();
-	
-		
-			
+		getchar();	
 	}else{
 		auxm = default_M;
 		auxn = default_N;
 		numThreads = default_NumThreads;
 	}
 	
-	printf("Sera criada uma matriz %d x %d.\nO processamento sera feito com %d threads\n", auxm, auxn, numThreads);
-	
+	printf("Matriz: (%d X %d)\nThreads: %d\n", auxm, auxn, numThreads);
 	if(getInputFromUser){pause();}
-	
 	
 	tStart = clock();
 	register int i;
@@ -60,17 +60,22 @@ int main(){
     ArrayDescriber tidArr;
 
 	//Criando vetores e matrizes
-	createMatrix(&matrix, 200, 200);
+	createMatrix(&matrix, auxm, auxn);
     createArray(&rspArr, matrix.diagNum);
 	createArray(&tidArr, numThreads);
 	rspArr.top = matrix.diagNum-1;
 	
 	
-    fillMatrixWithRandom(matrix);
-
-
-	
+    //fillMatrixWithRandom(matrix);
+    fillMatrix(matrix, 1);
+    //fileToMatrix(matrix, "in.txt");
+    //printMatrix(matrix);
+    
 	ThreadArgsInfo * tinfoptr = (ThreadArgsInfo*) malloc(numThreads * sizeof(ThreadArgsInfo));
+	if(tinfoptr == NULL){
+		printf("Erro ao alocar");
+		return -1;
+	}
 
     
     
@@ -95,9 +100,13 @@ int main(){
 	
 	//printf("\n--------------------------------------------\n");
 	
-    /*for(i = 0; i < matrix.diagNum; i++){
-        printf("%d = [%.2f]\n",i, rspArr.data[i].dt.rsp);
-    }*/
+    for(i = 0; i < matrix.diagNum; i++){
+        printf("Soma da diagonal %d = [%.2f]\n",i, rspArr.data[i].dt.rsp);
+    }
+    
+    arrayFloatToFile(rspArr, "out.txt");
+    	
+    	
     	
     	
  	//Liberando memória utilizada
@@ -108,17 +117,17 @@ int main(){
 
 	 
 	 elapsedTime = difftime(tEnd, tStart);
+	 if(generateExecutionData){
+		 //Gerando estrutura com dados da execução para gravar num arquivo .csv
+		 ExecutionData exdt;
+		 exdt.elapsedTime 	= elapsedTime;
+		 exdt.m 			= matrix.m;
+		 exdt.n 			= matrix.n;
+		 exdt.diags 		= matrix.diagNum;
+		 exdt.numThreads 	= numThreads;
+		 executionDataToCSV(exdt, DEFAULTEXDATACSVFILE);
+	 }
 	 
-	 
-	 //Gerando estrutura com dados da execução para gravar num arquivo .csv
-	 ExecutionData exdt;
-	 exdt.elapsedTime 	= elapsedTime;
-	 exdt.m 			= matrix.m;
-	 exdt.n 			= matrix.n;
-	 exdt.diags 		= matrix.diagNum;
-	 exdt.numThreads 	= numThreads;
-	 
-	 executionDataToCSV(exdt, DEFAULTEXDATACSVFILE);
 	 
 	 printf("TEMPO GASTO: %.2lf s\n", elapsedTime);
 

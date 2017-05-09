@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -12,10 +11,11 @@
 
 //Thread de soma
 void * threadSumFunc(void * args){
+	int sumCount = 0;
 
     ThreadArgsInfo *targs = (ThreadArgsInfo*)args;//Convertendo os argumentos da thread
     
-    printf("THREAD %d INICIANDO...\n", targs->threadNum);
+    if(printInfoProcess){printf("[Thread %d iniciando]\n", targs->threadNum);}
     
 	MatrixDescriber mxa = *(targs->mx);//Colocando em uma variável para deixar mais curto
     unsigned int jmp;//Tamanho do pulo
@@ -23,18 +23,19 @@ void * threadSumFunc(void * args){
     int numDiag = mxa.diagNum;//Quantidade de diagonais
     Coords coordrsp;
 	
-    //deleteArray(targs->rspArr);
-    //createArray(targs->rspArr, (unsigned int)(targs->mxa->diagNum / targs->threadNum) + 1);
-
     float sum, rsp;
 
     for(jmp = targs->threadNum; jmp <= numDiag; (jmp+=numThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
-        digaNumToCoord(mxa, jmp, &coordrsp);//convertendo número da diagonal para o primeiro elemento
-        //printf("DIAGNUMTOCOORD %d = (%d,%d) \n", jmp, coordrsp.mpos, coordrsp.npos);
         
-        //Coords crdaux = coordrsp;
+		if(!digaNumToCoord(mxa, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
+			continue;
+		}
+        //printf("DIAGNUMTOCOORD %d = (%d,%d) \n", jmp, coordrsp.mpos, coordrsp.npos);
 
-        getElement(mxa, coordrsp, &rsp);//Acessando primeiro elemento
+
+        if(!getElement(mxa, coordrsp, &rsp)){//Acessando primeiro elemento
+			continue;
+		}
         sum = rsp;//colocando na soma
 
 
@@ -48,9 +49,11 @@ void * threadSumFunc(void * args){
         }
 
         targs->rspArr->data[jmp].dt.rsp = sum;//gravando resultado na matriz de resultado
-        //printf("T%d : [DG: %.2d, \tSM: %.2f, \tINCRD: (%d, %d)]\n", targs->threadNum, jmp, sum, crdaux.mpos, crdaux.npos);
-
+        if(printInfoProcess){printf("T%d : [DG: %.2d, \tSM: %.2f]\n", targs->threadNum, jmp, sum);}
+		sumCount++;
     }
+    
+    if(printInfoProcess){printf("[Thread %d terminou, fez %d somas]\n", targs->threadNum, sumCount);}
     pthread_exit(NULL);//terminando a thread
     return NULL;
 }

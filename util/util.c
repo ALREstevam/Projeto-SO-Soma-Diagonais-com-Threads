@@ -4,6 +4,17 @@
 #include "../datadefine.h"
 
 
+
+
+void strsubstchar(char * source, char find, char replace){
+	int i;
+	for(i = 0; source[i] != '\0'; i++){
+		if(source[i] == find){
+			source[i] = replace;
+		}
+	}
+}
+
 //Função que grava um tipo de dado com informações da execução do programa em um arquivo .csv
 void executionDataToCSV(ExecutionData exd, char * fileName){
 	FILE *csvData = fopen(fileName, "a+");
@@ -11,7 +22,13 @@ void executionDataToCSV(ExecutionData exd, char * fileName){
 	if(csvData == NULL){
 		return;
 	}
-	fprintf(csvData, "%lf; %d; %d; %d; %d\n",exd.elapsedTime, exd.m, exd.n, exd.
+	char str[10];
+	
+	sprintf(str, "%.2lf", exd.elapsedTime);
+	
+	strsubstchar(str, '.', ',');
+	
+	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.
 	diags, exd.numThreads);
 	fclose(csvData);
 }
@@ -27,14 +44,6 @@ double timediff(clock_t t1, clock_t t2){
 void pause(){
 	printf("\nPressione enter para continuar...");
 	getchar();
-}
-
-bool verifyIsGreaterThanZero(int num, char * msgFalse){
-	if(num > 0){
-		return true;
-	}
-	printf("%s\n", msgFalse);
-	return false;
 }
 
 

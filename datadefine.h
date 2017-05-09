@@ -7,11 +7,15 @@
 #define DEFAULTOUTPUT "out.txt"
 #define DEFAULTEXDATACSVFILE "infoData.csv"
 
-static const bool getInputFromUser = true;
-static const bool generateExecutionData = true;
-static const int default_M = 200;
-static const int default_N = 200;
-static const int default_NumThreads = 2;
+//Valores de configuração
+static const bool getInputFromUser = false; //Usar dados do usuário = true, dados default = false
+static const bool generateExecutionData = true;//Gerar csv com dados de execução = true, não gerar = false
+static const bool printInfoProcess = false;//Fazer prints durante o processamento = true, não fazer = false
+
+//Valores default
+static const int default_M = 500;
+static const int default_N = 500;
+static const int default_NumThreads = 500;
 
 
 
