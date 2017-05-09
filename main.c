@@ -1,123 +1,127 @@
+/*
+Escrito por André L. R. Estevam 		como trabalho para a disciplina de Sistemas
+Operacionais (1º Semestre de 2017) da Faculdade de Tecnologia da Unicamp
+-------------------------------------------------------------------------------
+Este é um programa que lê números com ponto flutuante a partir de um arquivo para
+uma matriz m x n com m e n sendo inseridos pelo usuário, o programa usa de 1 a n
+threads para processar a soma das diagonais principais armazenando o resultado em
+um vetor, podendo ainda gerar dados sobre a execução do programa gravando em um
+arquivo .csv que pode ser lido por algum software de panilha eletrônica 
+*/
+
+//Incluindo bibliotecas padrão
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 #include <string.h>
-#include "global.h"
-#include "dataStructures/matrixDymnAlloc.h"
-#include "dataStructures/arrayDymnAlloc.h"
-#include "files/matrixInput.h"
+#include <pthread.h>
+#include <stdbool.h>
+#include <time.h>
 
-/*
-void * sumDiagonals(void *arg){
-
-}*/
-
-
+//Incluindo bibliotecas criadas
+#include "util/util.h"//Biblioteca com funções de utilidades diversas
+#include "datadefine.h"//Definição de dados (variáveis globais, defines e tipos de dados novos)
+#include "dataStructures/array/arrayMngr.h"//Biblioteca para gerenciar o tipo de vetor usado
+#include "dataStructures/matrix/matrixMngr.h"//Biblioteca para gerenciar o tipo de matriz usada
+#include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 
 int main(){
-	void clear(){
-		int i;
-		for(i = 0; i < 255; i++){
-			printf("\n");	
-		}
-	}
+	time_t tStart, tEnd;
+	double elapsedTime;
+	int auxm, auxn;
+	int numThreads;
 	
-	
-	MatrixDescriber mxDesc;
-	
-	//Definindo tamanho da matriz
-	
-	
-	int holder1, holder2, tAmount;
-	
-	printf("DEFININDO TAMANHO DA MATRIZ\n");
-	/*printf("m (linhas): ");
-	fscanf(stdin, "%d" ,&(holder1));
-	
-	getchar();
-	
-	printf("n (colunas): ");
-	fscanf(stdin, "%d" ,&(holder2));
-	getchar();
-	*/
-	
-	printf("m (linhas): ");
-	scanf("%d", &holder1);
-	printf("n (colunas): ");
-	scanf("%d", &holder2);
+	//Se variável ativada vai requerir dados do usuário, caso contrário vai rodar com os valores default
+	if(getInputFromUser){
+		printf("Digite os seguintes valores:\n<linhas> <colunas> <numero de threads>\n");
 		
-	mxDesc.m = holder1;
-	mxDesc.n = holder2;
-	
-	printf("\n\n");
-	printf("DEFININDO QUANTIDADE DE THREADS PARA FAZER A SOMA\n");
-	printf("T (numero de threads): ");
-	scanf("%d", &tAmount);
-	
-	clear();
-	
-	//Criando matriz
-	int result;
-	result = createMatrix(&mxDesc);
-	
-	printf("ALOCANDO MATRIZ.......: ");
-	
-	if(result < 0){
-		printf("erro numero: %d.\n", result * -1);
+		scanf("%d %d %d",&auxm, &auxn, &numThreads);
 		getchar();
-		return 0;
+	
+		
+			
 	}else{
-		setFillRandom(&mxDesc);
-		printf("sucesso.\n");
-		printMatrixInfo(mxDesc);
+		auxm = default_M;
+		auxn = default_N;
+		numThreads = default_NumThreads;
 	}
 	
+	printf("Sera criada uma matriz %d x %d.\nO processamento sera feito com %d threads\n", auxm, auxn, numThreads);
+	
+	if(getInputFromUser){pause();}
 	
 	
+	tStart = clock();
+	register int i;
+	
+	
+	//Definindo vetores e matrizes
+    MatrixDescriber matrix;
+    ArrayDescriber rspArr;
+    ArrayDescriber tidArr;
 
-	//Criando array para armazenar resultado das somas
-	ArrayDescriber arr;
-	arr.size = ((mxDesc.m) + (mxDesc.n)) - 1;	
-	strcpy(arr.dataType, "flt");
-	
-	printf("ALOCANDO VETOR DE RESULTADOS...............: ");
-	
-	result = createArray(&arr);
-	
-	if(result < 0){
-		printf("erro.\n");
-		getchar();
-		return 0;
-	}else{
-		printf("sucesso.\n");
-		printArrayInfo(arr);
-		
-	}
-	
-	//Criando fila para armazenar os índices dos elementos da matriz que são início de diagonal
-	ArrayDescriber resultStack;
-	resultStack.size = ((mxDesc.m) + (mxDesc.n)) - 1;
-	strcpy(resultStack.dataType, "cxy");
-	printf("ALOCANDO PILHA DE OPERACOES...............: ");
-	
-	result = createArray(&resultStack);
-	
-	if(result < 0){
-		printf("erro.\n");
-		getchar();
-		return 0;
-	}else{
-		mainDiagonalStartToStack(&mxDesc, &resultStack);
-		printf("sucesso.\n");
-		printArrayInfo(resultStack);
-		printArray(resultStack);
-	}
+	//Criando vetores e matrizes
+	createMatrix(&matrix, 200, 200);
+    createArray(&rspArr, matrix.diagNum);
+	createArray(&tidArr, numThreads);
+	rspArr.top = matrix.diagNum-1;
 	
 	
+    fillMatrixWithRandom(matrix);
+
 
 	
+	ThreadArgsInfo * tinfoptr = (ThreadArgsInfo*) malloc(numThreads * sizeof(ThreadArgsInfo));
+
+    
+    
+    for(i = 0; i < numThreads; i++){
+        
+		tinfoptr[i].threadNum = (unsigned short int)i;
+        tinfoptr[i].mx = &matrix;
+    	tinfoptr[i].rspArr = &rspArr;
+    	tinfoptr[i].totThreads = (unsigned int)numThreads;
+        
+        
+        pthread_create(&(tidArr.data[i].dt.tid), NULL, threadSumFunc, &tinfoptr[i]);
+        
+    }
+    
+    for(i = 0; i < numThreads; i++){
+		pthread_join(tidArr.data[i].dt.tid, NULL);
+	}
+
 	
-	return 0;
+	tEnd = clock();
+	
+	//printf("\n--------------------------------------------\n");
+	
+    /*for(i = 0; i < matrix.diagNum; i++){
+        printf("%d = [%.2f]\n",i, rspArr.data[i].dt.rsp);
+    }*/
+    	
+    	
+ 	//Liberando memória utilizada
+ 	deleteMatrix(&matrix);
+ 	deleteArray(&rspArr);
+ 	deleteArray(&tidArr);
+ 	free(tinfoptr);
+
+	 
+	 elapsedTime = difftime(tEnd, tStart);
+	 
+	 
+	 //Gerando estrutura com dados da execução para gravar num arquivo .csv
+	 ExecutionData exdt;
+	 exdt.elapsedTime 	= elapsedTime;
+	 exdt.m 			= matrix.m;
+	 exdt.n 			= matrix.n;
+	 exdt.diags 		= matrix.diagNum;
+	 exdt.numThreads 	= numThreads;
+	 
+	 executionDataToCSV(exdt, DEFAULTEXDATACSVFILE);
+	 
+	 printf("TEMPO GASTO: %.2lf s\n", elapsedTime);
+
+    return 0;
 }
-
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layout>
+	<Files>
+		<File Name="dataStructures\matrix\matrixMngr.h" Top="No" Tabpos="1" TopLine="1">
+			<Cursor Line="7" Column="48"/>
+		</File>
+		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="2" TopLine="7">
+			<Cursor Line="3" Column="14"/>
+		</File>
+		<File Name="util\util.c" Top="No" Tabpos="3" TopLine="12">
+			<Cursor Line="32" Column="1"/>
+			<Selection Line="32" Column="55"/>
+		</File>
+		<File Name="util\util.h" Top="No" Tabpos="4" TopLine="1">
+			<Cursor Line="10" Column="7"/>
+		</File>
+		<File Name="main.c" Top="Yes" Tabpos="5" TopLine="1">
+			<Cursor Line="9" Column="25"/>
+		</File>
+		<File Name="datadefine.h" Top="No" Tabpos="6" TopLine="1">
+			<Cursor Line="14" Column="26"/>
+		</File>
+		<File Name="file\fileMngr.c" Top="No" Tabpos="7" TopLine="1">
+			<Cursor Line="18" Column="19"/>
+		</File>
+	</Files>
+	<Folders>
+		<Folder Name="thread" Expanded="Yes"/>
+		<Folder Name="file" Expanded="Yes"/>
+		<Folder Name="dataStructures" Expanded="Yes"/>
+		<Folder Name="dataStructures\array" Expanded="Yes"/>
+		<Folder Name="dataStructures\matrix" Expanded="Yes"/>
+		<Folder Name="util" Expanded="Yes"/>
+	</Folders>
+</Layout>
