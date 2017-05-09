@@ -1,9 +1,6 @@
 #ifndef matrixDymnAlloc_H
 #define matrixDymnAlloc_H
 
-void test();
-
-
 int createMatrix					(MatrixDescriber *mxDesc);
 void initializeMatrixElem			(MatrixDescriber *mxDesc);
 void getNextElemInMainDiagonal		(MatrixDescriber *mxDesc, CoordinatesXY *coords, int x, int y);

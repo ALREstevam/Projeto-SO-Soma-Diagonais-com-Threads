@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="main.c" Top="Yes" Tabpos="1" TopLine="136">
-			<Cursor Line="147" Column="9"/>
-		</File>
-		<File Name="dataStructures\arrayDymnAlloc.c" Top="No" Tabpos="2" TopLine="22">
-			<Cursor Line="11" Column="44"/>
-		</File>
-		<File Name="dataStructures\matrixDymnAlloc.c" Top="No" Tabpos="3" TopLine="49">
-			<Cursor Line="52" Column="31"/>
-			<Selection Line="52" Column="6"/>
-		</File>
-		<File Name="global.h" Top="No" Tabpos="4" TopLine="31">
-			<Cursor Line="52" Column="19"/>
-		</File>
-		<File Name="dataStructures\arrayDymnAlloc.h" Top="No" Tabpos="5" TopLine="1">
-			<Cursor Line="7" Column="1"/>
+		<File Name="main.c" Top="No" Tabpos="3" TopLine="1">
+			<Cursor Line="11" Column="1"/>
+			<Selection Line="13" Column="3"/>
 		</File>
 	</Files>
 	<Folders>
-		<Folder Name="files" Expanded="Yes"/>
 		<Folder Name="dataStructures" Expanded="Yes"/>
 	</Folders>
 </Layout>
