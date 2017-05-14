@@ -5,17 +5,18 @@
 			<Cursor Line="10" Column="6"/>
 			<Selection Line="10" Column="16"/>
 		</File>
-		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="2" TopLine="53">
-			<Cursor Line="67" Column="11"/>
+		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="2" TopLine="110">
+			<Cursor Line="132" Column="18"/>
 		</File>
-		<File Name="util\util.c" Top="No" Tabpos="3" TopLine="9">
-			<Cursor Line="13" Column="24"/>
+		<File Name="util\util.c" Top="No" Tabpos="3" TopLine="30">
+			<Cursor Line="48" Column="1"/>
+			<Selection Line="48" Column="64"/>
 		</File>
 		<File Name="util\util.h" Top="No" Tabpos="4" TopLine="1">
-			<Cursor Line="8" Column="15"/>
+			<Cursor Line="9" Column="66"/>
 		</File>
-		<File Name="main.c" Top="Yes" Tabpos="5" TopLine="25">
-			<Cursor Line="34" Column="4"/>
+		<File Name="main.c" Top="Yes" Tabpos="5" TopLine="1">
+			<Cursor Line="6" Column="1"/>
 		</File>
 		<File Name="datadefine.h" Top="No" Tabpos="6" TopLine="35">
 			<Cursor Line="20" Column="1"/>
@@ -23,8 +24,18 @@
 		<File Name="thread\thread.c" Top="No" Tabpos="7" TopLine="16">
 			<Cursor Line="37" Column="13"/>
 		</File>
-		<File Name="file\fileMngr.c" Top="No" Tabpos="8" TopLine="34">
-			<Cursor Line="50" Column="18"/>
+		<File Name="file\fileMngr.c" Top="No" Tabpos="8" TopLine="1">
+			<Cursor Line="58" Column="18"/>
+		</File>
+		<File Name="dataStructures\array\arrayMngr.h" Top="No" Tabpos="9" TopLine="1">
+			<Cursor Line="11" Column="17"/>
+			<Selection Line="11" Column="6"/>
+		</File>
+		<File Name="dataStructures\array\arrayMngr.c" Top="No" Tabpos="10" TopLine="21">
+			<Cursor Line="51" Column="21"/>
+		</File>
+		<File Name="file\fileMngr.h" Top="No" Tabpos="11" TopLine="1">
+			<Cursor Line="1" Column="1"/>
 		</File>
 	</Files>
 	<Folders>

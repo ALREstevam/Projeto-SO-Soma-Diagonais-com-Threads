@@ -48,7 +48,7 @@ bool accessPosition(ArrayDescriber *arr, unsigned int pos, UData *rsp){
 }
 
 void deleteArray(ArrayDescriber *arr){
-    free(arr);
+    free(arr->data);
 }
 
 

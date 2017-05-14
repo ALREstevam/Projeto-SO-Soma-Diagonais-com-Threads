@@ -5,8 +5,7 @@ OBJS   = main.o \
          file/fileMngr.o \
          dataStructures/array/arrayMngr.o \
          dataStructures/matrix/matrixMngr.o \
-         util/util.o \
-         main2.o
+         util/util.o
 
 LIBS   = -lpthread
 CFLAGS =
@@ -40,8 +39,5 @@ dataStructures/matrix/matrixMngr.o: dataStructures/matrix/matrixMngr.c datadefin
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
 util/util.o: util/util.c datadefine.h
-	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
-
-main2.o: main2.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 

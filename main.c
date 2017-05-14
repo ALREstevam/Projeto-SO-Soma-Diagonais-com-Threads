@@ -1,3 +1,10 @@
+// Adicionar mais retorno para as threads!
+// - Quantos elementos a thread processou
+// - Quantas diagonais a thread processou
+// - Testar se o free está funcionanando no linux
+// - Fazer novos testes no linux
+
+
 /*
 Escrito por André L. R. Estevam 		como trabalho para a disciplina de Sistemas
 Operacionais (1º Semestre de 2017) da Faculdade de Tecnologia da Unicamp
@@ -25,7 +32,7 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
-int nomain(){
+int main(){
 	time_t tStart, tEnd;
 	double elapsedTime;
 	int auxm, auxn;
@@ -69,24 +76,25 @@ int nomain(){
     //fileToMatrix(matrix, "in.txt");
     //printMatrix(matrix);
     
+	//Alocando na memória espaço para o argumento das threads
 	ThreadArgsInfo * tinfoptr = (ThreadArgsInfo*) malloc(numThreads * sizeof(ThreadArgsInfo));
 	if(tinfoptr == NULL){
-		printf("Erro ao alocar");
+		printf("Erro ao alocar argumentos de threads\n");
 		return -1;
 	}
 
-    
-    
+	//Para cada thread
     for(i = 0; i < numThreads; i++){
-        
+
+		//Inicializando os argumentos das threads
 		tinfoptr[i].threadNum = (unsigned short int)i;
         tinfoptr[i].mx = &matrix;
     	tinfoptr[i].rspArr = &rspArr;
     	tinfoptr[i].totThreads = (unsigned int)numThreads;
         
-        
-        pthread_create(&(tidArr.data[i].dt.tid), NULL, threadSumFunc, &tinfoptr[i]);
-        
+        //Criando thread
+		pthread_create(&(tidArr.data[i].dt.tid), NULL, threadSumFunc, &tinfoptr[i]);
+	
     }
     
     for(i = 0; i < numThreads; i++){

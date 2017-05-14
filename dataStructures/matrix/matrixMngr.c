@@ -129,7 +129,7 @@ void deleteMatrix(MatrixDescriber *mx){
     for(i = 0; i < mx->m; i++){
         free(mx->data[i]);
     }
-    free(mx);
+    free(mx->data);
 }
 
 //Função que imprime os valores guardados em uma matriz
