@@ -1,7 +1,3 @@
-//
-// Created by andre on 02/05/2017.
-//
-
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../../datadefine.h"
@@ -21,10 +17,8 @@ bool createArray(ArrayDescriber *arr, unsigned int size){
 
 bool reallocArray(ArrayDescriber *arr, unsigned int newsize){
     arr->size = newsize;
-    if(realloc(arr, newsize) == NULL){
-		return false;
-	}
-    if(arr->data == NULL){
+    arr = realloc(arr, newsize);
+    if(arr->data == NULL || arr == NULL){
         return false;
     }
     return true;
@@ -32,7 +26,7 @@ bool reallocArray(ArrayDescriber *arr, unsigned int newsize){
 
 bool arrayAddTop(ArrayDescriber *arr, UData info){
     if(arr->top+1 > arr->size){
-        if(reallocArray(arr, arr->size + 10) == NULL){
+        if(!reallocArray(arr, arr->size + 10)){
             return false;
         }
     }
