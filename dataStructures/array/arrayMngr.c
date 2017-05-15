@@ -21,7 +21,9 @@ bool createArray(ArrayDescriber *arr, unsigned int size){
 
 bool reallocArray(ArrayDescriber *arr, unsigned int newsize){
     arr->size = newsize;
-    realloc(arr, newsize);
+    if(realloc(arr, newsize) == NULL){
+		return false;
+	}
     if(arr->data == NULL){
         return false;
     }
@@ -30,7 +32,7 @@ bool reallocArray(ArrayDescriber *arr, unsigned int newsize){
 
 bool arrayAddTop(ArrayDescriber *arr, UData info){
     if(arr->top+1 > arr->size){
-        if(reallocArray(arr, arr->size + 10) == -1){
+        if(reallocArray(arr, arr->size + 10) == NULL){
             return false;
         }
     }
