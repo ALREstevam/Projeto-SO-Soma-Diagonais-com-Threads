@@ -7,4 +7,7 @@
 	long timediff(clock_t t1, clock_t t2);
 	void pause();
 	void appendToMedFile(char * filename, int threads, double time);
+	void appendToTExecutionFile(char * filename, ThreadExecutionData ted);
+	void putHeader(char * filename, char * csvheader);
+	
 #endif

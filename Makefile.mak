@@ -5,7 +5,8 @@ OBJS   = main.o \
          file/fileMngr.o \
          dataStructures/array/arrayMngr.o \
          dataStructures/matrix/matrixMngr.o \
-         util/util.o
+         util/util.o \
+         maindata.o
 
 LIBS   = -lpthread
 CFLAGS =
@@ -26,7 +27,7 @@ projso.exe: $(OBJS)
 main.o: main.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-thread/thread.o: thread/thread.c thread/thread.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h
+thread/thread.o: thread/thread.c thread/thread.h util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
 file/fileMngr.o: file/fileMngr.c file/fileMngr.h datadefine.h dataStructures/matrix/matrixMngr.h
@@ -39,5 +40,8 @@ dataStructures/matrix/matrixMngr.o: dataStructures/matrix/matrixMngr.c datadefin
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
 util/util.o: util/util.c datadefine.h
+	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
+
+maindata.o: maindata.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 

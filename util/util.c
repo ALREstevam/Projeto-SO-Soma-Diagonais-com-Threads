@@ -45,7 +45,7 @@ void pause(){
 	getchar();
 }
 
-void appendToMedFile(char * filename, int threads, double time){
+/*void appendToMedFile(char * filename, int threads, double time){
 	FILE * fl = fopen(filename, "a+");
 	
 	char str[10];
@@ -54,7 +54,21 @@ void appendToMedFile(char * filename, int threads, double time){
 	fprintf(fl, "%d;%s\n",threads, str);
 	
 	fclose(fl);
+}*/
+
+
+void appendToTExecutionFile(char * filename, ThreadExecutionData ted){
+	FILE * fl = fopen(filename, "a+");
 	
+	fprintf(fl, "T%d;%d;%d\n",ted.tnum, ted.processedElems, ted.processedDiags);
+	fclose(fl);
+}
+
+void putHeader(char * filename, char * csvheader){
+	FILE * fl = fopen(filename, "a+");
+
+	fprintf(fl, "%s",csvheader);
+	fclose(fl);	
 }
 
 

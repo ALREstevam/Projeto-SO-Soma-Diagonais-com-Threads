@@ -5,17 +5,18 @@
 
 #define DEFAULTINPUT "in.txt"
 #define DEFAULTOUTPUT "out.txt"
-#define DEFAULTEXDATACSVFILE "infoData.csv"
+#define DEFAULTEXDATACSVFILE "_infoData.csv"
+#define DELAULTTHREADEXCSVFILE "_threadEx.csv"
 
 //Valores de configuração
 static const bool getInputFromUser = false; //Usar dados do usuário = true, dados default = false
 static const bool generateExecutionData = true;//Gerar csv com dados de execução = true, não gerar = false
-static const bool printInfoProcess = false;//Fazer prints durante o processamento = true, não fazer = false
+static const bool printInfoProcess = true;//Fazer prints durante o processamento = true, não fazer = false
 
 //Valores default
 static const int default_M = 500;
 static const int default_N = 500;
-static const int default_NumThreads = 500;
+static const int default_NumThreads = 4;
 
 
 
@@ -63,6 +64,12 @@ typedef struct {
     int mpos, npos;
 }Coords;
 
+//Informações de processamento para cada thread
+typedef struct{
+	int tnum;
+	int processedElems;
+	int processedDiags;
+}ThreadExecutionData;
 
 
 

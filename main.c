@@ -33,10 +33,14 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
 int main(){
+	
 	time_t tStart, tEnd;
 	double elapsedTime;
 	int auxm, auxn;
 	int numThreads;
+	
+	putHeader(DEFAULTEXDATACSVFILE,"tempo;m;n;diagonais;threads\n");
+	putHeader(DELAULTTHREADEXCSVFILE,"tnum;elementos_processados;diagonais_processadas\n");
 	
 	//generateRandomFloatFile("in.txt", 5000000);
 
@@ -103,21 +107,24 @@ int main(){
 
 	
 	tEnd = clock();
+	if(printInfoProcess){
+		printf("Relogio foi parado\n");
+	}
 	
 	//printf("\n--------------------------------------------\n");
 	
+	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
     for(i = 0; i < matrix.diagNum; i++){
-        printf("Soma da diagonal %d = [%.2f]\n",i, rspArr.data[i].dt.rsp);
+        printf("Diagonal: [%d]\t|\tSoma: %.3f\n",i, rspArr.data[i].dt.rsp);
     }
     
-    printf("*");
+
     arrayFloatToFile(rspArr, "out.txt");
-    	printf("*");
+ 
+    
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
- 	printf("*");
  	deleteArray(&rspArr);
- 	
 	deleteArray(&tidArr);
  	free(tinfoptr);
 
@@ -135,7 +142,7 @@ int main(){
 	 }
 	 
 	 
-	 printf("TEMPO GASTO: %.2lf s\n", elapsedTime);
+	 printf("\nTEMPO GASTO: [%.2lf s]\n", elapsedTime);
 
     return 0;
 }
