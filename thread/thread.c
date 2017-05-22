@@ -16,7 +16,7 @@ void * threadSumFunc(void * args){
 
     ThreadArgsInfo *targs = (ThreadArgsInfo*)args;//Convertendo os argumentos da thread
     
-    if(printInfoProcess){printf("::::::::::::::[THREAD %d INICIANDO]::::::::::::::\n", targs->threadNum);}
+    if(printInfoProcess){printf(ANSI_COLOR_RED"[THREAD %d INICIANDO]\n"ANSI_COLOR_RESET, targs->threadNum);}
     
 	MatrixDescriber mxa = *(targs->mx);//Colocando em uma variável para deixar mais curto
     unsigned int jmp;//Tamanho do pulo
@@ -48,12 +48,12 @@ void * threadSumFunc(void * args){
         }
 
         targs->rspArr->data[jmp].dt.rsp = sum;//gravando resultado na matriz de resultado
-        if(printInfoProcess){printf("T%d : [DG: %.2d, \tSM: %.2f]\n", targs->threadNum, jmp, sum);}
+        if(printInfoProcess){printf(ANSI_COLOR_YELLOW"T%d : [DG: %.2d, \tSM: %.2f]\n"ANSI_COLOR_RESET, targs->threadNum, jmp, sum);}
 		sumCount++;
     }
     
     if(printInfoProcess){
-		printf("[Thread %d terminou, fez %d somas]\n", targs->threadNum, sumCount);
+		printf(ANSI_COLOR_GREEN"[Thread %d terminou, fez %d somas]\n"ANSI_COLOR_RESET, targs->threadNum, sumCount);
 	}
     	
 	if(generateExecutionData){

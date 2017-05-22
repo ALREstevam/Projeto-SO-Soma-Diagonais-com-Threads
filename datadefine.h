@@ -1,23 +1,41 @@
 #ifndef PROJSOTEST_DATADEFINE_H
 #define PROJSOTEST_DATADEFINE_H
+
 #include <pthread.h>
 #include <stdbool.h>
 
-#define DEFAULTINPUT "in.txt"
-#define DEFAULTOUTPUT "out.txt"
 #define DEFAULTEXDATACSVFILE "_infoData.csv"
 #define DELAULTTHREADEXCSVFILE "_threadEx.csv"
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+typedef char* string;
+
 //Valores de configuração
-static const bool getInputFromUser = false; //Usar dados do usuário = true, dados default = false
-static const bool generateExecutionData = true;//Gerar csv com dados de execução = true, não gerar = false
-static const bool printInfoProcess = true;//Fazer prints durante o processamento = true, não fazer = false
+static const bool getInputFromUser 			= false; //Usar dados do usuário = true, dados default = false
+static const bool generateExecutionData 	= true;//Gerar csv com dados de execução = true, não gerar = false
+static const bool printInfoProcess 			= true;//Fazer prints durante o processamento = true, não fazer = false
+static const bool fillInputWithRandom	 	= false;
+static const bool fillInputWithNum 			= false;
+
+//Parâmetros
+static const float fillElement 				= 1;
+static const int fileElementsAmount 		= 50000;
 
 //Valores default
-static const int default_M = 500;
-static const int default_N = 500;
-static const int default_NumThreads = 4;
+static const int default_M 					= 100;
+static const int default_N 					= 100;
+static const int default_NumThreads 		= 10;
 
+
+#define defaultInputPath "in.txt"
+#define defaultOutputPath "out.txt"
 
 
 //Tipo de dado que reune diferentes dados

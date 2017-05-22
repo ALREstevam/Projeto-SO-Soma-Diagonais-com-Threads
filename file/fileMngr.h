@@ -10,5 +10,6 @@
 void fileToMatrix(MatrixDescriber mx, char * filename);
 void arrayFloatToFile(ArrayDescriber arr, char * filename);
 void generateRandomFloatFile(char * filename, int qtd);
+void fillFileWithValue(char * filename, int qtd, float value);
 
 #endif //PROJSOTEST_FILEMNGR_H

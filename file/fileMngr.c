@@ -7,7 +7,7 @@
 
 
 //Função que faz leitura a partir de um arquivo coloca os valores lidos em uma matriz
-void fileToMatrix(MatrixDescriber mx, char * filename) {
+void fileToMatrix(MatrixDescriber mx,char * filename) {
 	FILE * in = fopen(filename, "r");
 	float value;
 	register int i, j;
@@ -30,10 +30,6 @@ void fileToMatrix(MatrixDescriber mx, char * filename) {
 			setElement(mx, crd, value);
 		}
 	}
-
-
-
-
 	fclose(in);
 }
 
@@ -46,7 +42,7 @@ void arrayFloatToFile(ArrayDescriber arr, char * filename) {
 	}
 
 	int register i;
-	for(i = 0; i < arr.top; i++) {
+	for(i = 0; i < arr.top+1; i++) {
 		fprintf(out, "%f\n", arr.data[i].dt.rsp);
 	}
 
@@ -63,6 +59,18 @@ void generateRandomFloatFile(char * filename, int qtd) {
 		//fprintf(fl, "%f ", ((float)rand()/(float)(RAND_MAX)) * 6;
 
 		fprintf(fl, "%f ",  ((float)(rand() % 60) / 10.0) * 5);
+	}
+}
+
+void fillFileWithValue(char * filename, int qtd, float value) {
+	FILE * fl = fopen(filename, "w");
+	
+	if(fl == NULL) {
+		return;
+	}
+	register int i;
+	for(i = 0; i < qtd; i++) {
+		fprintf(fl, "%f ", value);
 	}
 }
 
