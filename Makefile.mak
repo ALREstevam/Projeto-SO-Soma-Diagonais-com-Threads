@@ -38,6 +38,6 @@ dataStructures/array/arrayMngr.o: dataStructures/array/arrayMngr.c datadefine.h
 dataStructures/matrix/matrixMngr.o: dataStructures/matrix/matrixMngr.c datadefine.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-util/util.o: util/util.c datadefine.h
+util/util.o: util/util.c datadefine.h file/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 

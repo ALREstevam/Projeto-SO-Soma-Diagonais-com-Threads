@@ -32,44 +32,28 @@ arquivo .csv que pode ser lido por algum software de panilha eletrônica
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
-int main(){
-	time_t tStart, tEnd;
+double exec(int nt){	
+	time_t tStart = 0, tEnd = 0;
+	pthread_mutex_t lock;
+	pthread_mutex_init(&lock, NULL);
+	unsigned int diagNum = 0;
+	int auxm, auxn, numThreads;
 	double elapsedTime;
-	int auxm, auxn;
-	int numThreads;
 	
-	putHeader(DEFAULTEXDATACSVFILE,"tempo;m;n;diagonais;threads\n");
-	putHeader(DELAULTTHREADEXCSVFILE,"tnum;elementos_processados;diagonais_processadas\n");
 	
-	//Gerar entrada com números aleatórios
-	if(fillInputWithRandom){
-		generateRandomFloatFile(defaultInputPath, fileElementsAmount);
-	}else if(fillInputWithNum){
-		fillFileWithValue(defaultInputPath, fileElementsAmount, fillElement);
-	}
-
-	//Se variável ativada vai requerir dados do usuário, caso contrário vai rodar com os valores default
+	//Se requerir entrada do usuário estiver ativado
 	if(getInputFromUser){
 		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
 		
 		scanf("%d %d %d",&auxm, &auxn, &numThreads);
 		getchar();	
-	}else{
+	}else{//Definição dos valores default
 		auxm = default_M;
 		auxn = default_N;
-		numThreads = default_NumThreads;
+		//numThreads = default_NumThreads;
+		numThreads = nt;
 	}
-	
-	
-	if(getInputFromUser){
-		printf("Matriz: (%d X %d)\nThreads: %d\n", auxm, auxn, numThreads);
-		pause();
-	}
-	
-	tStart = clock();//Iniciando relógio
-	register int i;
-	
-	
+
 	//Definindo vetores e matrizes
     MatrixDescriber matrix;
     ArrayDescriber rspArr;
@@ -83,68 +67,58 @@ int main(){
 	
 	//Lendo arquivo de entrada
     fileToMatrix(matrix, defaultInputPath);
-
-    
-	//Alocando na memória espaço para o argumento das threads
-	ThreadArgsInfo * tinfoptr = (ThreadArgsInfo*) malloc(numThreads * sizeof(ThreadArgsInfo));
-	if(tinfoptr == NULL){
-		fprintf(stderr,"Erro ao alocar argumentos de threads\n");
-		return -1;
+	
+	ThreadArgsInfo1 targs;
+	targs.mx = &matrix;
+	targs.rspArr = &rspArr;
+	targs.lock = &lock;
+	targs.contDiag = &diagNum;
+		
+	register int i;
+	
+	tStart = clock();//Disparando relógio
+	for(i = 0; i < numThreads; i++){
+		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc1, &targs);
 	}
 
-	//Para cada thread
-    for(i = 0; i < numThreads; i++){
-
-		//Inicializando os argumentos das threads
-		tinfoptr[i].threadNum = (unsigned short int)i;
-        tinfoptr[i].mx = &matrix;
-    	tinfoptr[i].rspArr = &rspArr;
-    	tinfoptr[i].totThreads = (unsigned int)numThreads;
-        
-        //Criando thread
-		pthread_create(&(tidArr.data[i].dt.tid), NULL, threadSumFunc, &tinfoptr[i]);
-	
-    }
-    
-    for(i = 0; i < numThreads; i++){
-		pthread_join(tidArr.data[i].dt.tid, NULL);
+	for(i = 0; i < numThreads; i++){
+		pthread_join(tidArr.data[i].tid, NULL);
 	}
 	tEnd = clock();//Parando relógio
+	pthread_mutex_destroy(&lock);//destruindo o mutex
 	
-
+	arrayFloatToFile(rspArr, defaultOutputPath);
 	
-	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
+	/*printf("\t\tIMPRIMINDO RESULTADOS\n\n");
     for(i = 0; i < matrix.diagNum; i++){
-        printf("Diagonal: [%d]\t|\tSoma: %.3f\n",i, rspArr.data[i].dt.rsp);
-    }
-    
-
-    arrayFloatToFile(rspArr, defaultOutputPath);
- 
+        printf("Diagonal: [%d]\t|\tSoma: %.3f\n",i, rspArr.data[i].rsp);
+	}*/
     
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
+ 	
  	deleteArray(&rspArr);
 	deleteArray(&tidArr);
- 	free(tinfoptr);
 
-	 
-	 elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
-	 
-	 if(generateExecutionData){
-		 //Gerando estrutura com dados da execução para gravar num arquivo .csv
-		 ExecutionData exdt;
-		 exdt.elapsedTime 	= elapsedTime;
-		 exdt.m 			= matrix.m;
-		 exdt.n 			= matrix.n;
-		 exdt.diags 		= matrix.diagNum;
-		 exdt.numThreads 	= numThreads;
-		 executionDataToCSV(exdt, DEFAULTEXDATACSVFILE);
-	 }
-	 printf("\nTEMPO GASTO: [%.2lf s]\n", elapsedTime);
-
-    return 0;
+	elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
+	//printf("TEMPO GASTO: %.2lf s\n", elapsedTime);
+	
+	/*FILE *fl = fopen("data.csv","a+");
+	fprintf(fl, "%d; %f\n", numThreads, elapsedTime);*/
+	return elapsedTime;
 }
 
-
-
+int main(){
+	int tcount, loopcount, maxt = 10, maxloop = 40;
+	double med = 0;
+	FILE *fl = fopen("data1.csv", "w");
+	
+	for(tcount = 1; tcount < maxt; tcount++){
+		for(loopcount = 0; loopcount < maxloop; loopcount++){
+			med += exec(tcount);
+		}
+		fprintf(fl, "%d; %lf\n",tcount, (med/loopcount));
+		med = 0;
+	}
+	return 0;
+}

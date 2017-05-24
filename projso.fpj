@@ -38,5 +38,6 @@
 			<File Name="util.h"/>
 			<File Name="util.c"/>
 		</Folder>
+		<File Name="trash"/>
 	</Files>
 </Project>

@@ -2,9 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include "../datadefine.h"
-
-
-
+#include "../file/fileMngr.h"
 
 void strsubstchar(char * source, char find, char replace){
 	int i;
@@ -23,11 +21,8 @@ void executionDataToCSV(ExecutionData exd, char * fileName){
 		return;
 	}
 	char str[10];
-	
 	sprintf(str, "%.2lf", exd.elapsedTime);
-	
 	strsubstchar(str, '.', ',');
-	
 	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.diags, exd.numThreads);
 	fclose(csvData);
 }
@@ -45,17 +40,6 @@ void pause(){
 	getchar();
 }
 
-/*void appendToMedFile(char * filename, int threads, double time){
-	FILE * fl = fopen(filename, "a+");
-	
-	char str[10];
-	sprintf(str, "%.2lf", time);
-	strsubstchar(str, '.', ',');
-	fprintf(fl, "%d;%s\n",threads, str);
-	
-	fclose(fl);
-}*/
-
 
 void appendToTExecutionFile(char * filename, ThreadExecutionData ted){
 	FILE * fl = fopen(filename, "a+");
@@ -69,6 +53,14 @@ void putHeader(char * filename, char * csvheader){
 
 	fprintf(fl, "%s",csvheader);
 	fclose(fl);	
+}
+
+void setConfig(bool fllinrnd, bool fllinnum, float flelem, int qtd, char * definpath){
+	if(fllinrnd){
+		generateRandomFloatFile(definpath, qtd);
+	}else if(fllinnum){
+		fillFileWithValue(definpath, qtd, flelem);
+	}
 }
 
 

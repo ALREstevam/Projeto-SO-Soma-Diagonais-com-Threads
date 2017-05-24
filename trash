@@ -1,0 +1,176 @@
+//////////////////////////////////
+int nomain(){
+	time_t tStart, tEnd;
+	double elapsedTime;
+	int auxm, auxn;
+	int numThreads;
+	
+	putHeader(DEFAULTEXDATACSVFILE,"tempo;m;n;diagonais;threads\n");
+	putHeader(DELAULTTHREADEXCSVFILE,"tnum;elementos_processados;diagonais_processadas\n");
+	
+	//Gerar entrada com números aleatórios
+	if(fillInputWithRandom){
+		generateRandomFloatFile(defaultInputPath, fileElementsAmount);
+	}else if(fillInputWithNum){
+		fillFileWithValue(defaultInputPath, fileElementsAmount, fillElement);
+	}
+
+	//Se variável ativada vai requerir dados do usuário, caso contrário vai rodar com os valores default
+	if(getInputFromUser){
+		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
+		
+		scanf("%d %d %d",&auxm, &auxn, &numThreads);
+		getchar();	
+	}else{
+		auxm = default_M;
+		auxn = default_N;
+		numThreads = default_NumThreads;
+	}
+	
+	
+	if(getInputFromUser){
+		printf("Matriz: (%d X %d)\nThreads: %d\n", auxm, auxn, numThreads);
+		pause();
+	}
+	
+	tStart = clock();//Iniciando relógio
+	register int i;
+	
+	
+	//Definindo vetores e matrizes
+    MatrixDescriber matrix;
+    ArrayDescriber rspArr;
+    ArrayDescriber tidArr;
+
+	//Criando vetores e matrizes
+	createMatrix(&matrix, auxm, auxn);
+    createArray(&rspArr, matrix.diagNum);
+	createArray(&tidArr, numThreads);
+	rspArr.top = matrix.diagNum-1;
+	
+	//Lendo arquivo de entrada
+    fileToMatrix(matrix, defaultInputPath);
+
+    
+	//Alocando na memória espaço para o argumento das threads
+	ThreadArgsInfo * tinfoptr = (ThreadArgsInfo*) malloc(numThreads * sizeof(ThreadArgsInfo));
+	if(tinfoptr == NULL){
+		fprintf(stderr,"Erro ao alocar argumentos de threads\n");
+		return -1;
+	}
+
+	//Para cada thread
+    for(i = 0; i < numThreads; i++){
+
+		//Inicializando os argumentos das threads
+		tinfoptr[i].threadNum = (unsigned short int)i;
+        tinfoptr[i].mx = &matrix;
+    	tinfoptr[i].rspArr = &rspArr;
+    	tinfoptr[i].totThreads = (unsigned int)numThreads;
+        
+        //Criando thread
+		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc, &tinfoptr[i]);
+	
+    }
+    
+    for(i = 0; i < numThreads; i++){
+		pthread_join(tidArr.data[i].tid, NULL);
+	}
+	tEnd = clock();//Parando relógio
+	
+
+	
+	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
+    for(i = 0; i < matrix.diagNum; i++){
+        printf("Diagonal: [%d]\t|\tSoma: %.3f\n",i, rspArr.data[i].rsp);
+    }
+    
+
+    arrayFloatToFile(rspArr, defaultOutputPath);
+ 
+    
+ 	//Liberando memória utilizada
+ 	deleteMatrix(&matrix);
+ 	deleteArray(&rspArr);
+	deleteArray(&tidArr);
+ 	free(tinfoptr);
+
+	 
+	 elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
+	 
+	 if(generateExecutionData){
+		 //Gerando estrutura com dados da execução para gravar num arquivo .csv
+		 ExecutionData exdt;
+		 exdt.elapsedTime 	= elapsedTime;
+		 exdt.m 			= matrix.m;
+		 exdt.n 			= matrix.n;
+		 exdt.diags 		= matrix.diagNum;
+		 exdt.numThreads 	= numThreads;
+		 executionDataToCSV(exdt, DEFAULTEXDATACSVFILE);
+	 }
+	 printf("\nTEMPO GASTO: [%.2lf s]\n", elapsedTime);
+
+    return 0;
+}
+
+
+
+//Thread de soma
+void * threadSumFunc(void * args){
+	register int sumCount = 0, elementCount = 0;
+
+    ThreadArgsInfo *targs = (ThreadArgsInfo*)args;//Convertendo os argumentos da thread
+    
+    if(printInfoProcess){printf(ANSI_COLOR_RED"[THREAD %d INICIANDO]\n"ANSI_COLOR_RESET, targs->threadNum);}
+    
+	MatrixDescriber mxa = *(targs->mx);//Colocando em uma variável para deixar mais curto
+    unsigned int jmp;//Tamanho do pulo
+    int numThreads = targs->totThreads;//Quantidade de threads
+    int numDiag = mxa.diagNum;//Quantidade de diagonais
+    Coords coordrsp;
+	
+    float sum, rsp;
+
+    for(jmp = targs->threadNum; jmp <= numDiag; (jmp+=numThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
+        
+		if(!diagNumToCoord(mxa, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
+			continue;
+		}
+        if(!getElement(mxa, coordrsp, &rsp)){//Acessando primeiro elemento
+			continue;
+		}
+        sum = rsp;//colocando na soma
+
+
+        while(getNextElementPositionMdiags(mxa, &coordrsp) == true){//enquanto existir um próximo elemento na diagonal
+            if(getElement(mxa, coordrsp, &rsp) == true){//acessando elemento
+                sum += rsp;//adicionando elemento na soma
+            	elementCount++;
+            }
+            else{
+                break;
+            }
+        }
+
+        targs->rspArr->data[jmp].rsp = sum;//gravando resultado na matriz de resultado
+        if(printInfoProcess){printf(ANSI_COLOR_YELLOW"T%d : [DG: %.2d, \tSM: %.2f]\n"ANSI_COLOR_RESET, targs->threadNum, jmp, sum);}
+		sumCount++;
+    }
+    
+    if(printInfoProcess){
+		printf(ANSI_COLOR_GREEN"[Thread %d terminou, fez %d somas]\n"ANSI_COLOR_RESET, targs->threadNum, sumCount);
+	}
+    	
+	if(generateExecutionData){
+			ThreadExecutionData td;
+			td.tnum = targs->threadNum;
+			td.processedElems = elementCount;
+			td.processedDiags = sumCount;
+			
+			appendToTExecutionFile(DELAULTTHREADEXCSVFILE, td);
+	}
+    pthread_exit(NULL);//terminando a thread
+    return NULL;
+}
+
+

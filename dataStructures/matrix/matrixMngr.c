@@ -75,7 +75,7 @@ bool getElement(MatrixDescriber mxd, Coords coord, float *rsp){
 }
 
 //Função que converte o número de uma diagonal para suas coordenadas
-bool digaNumToCoord(MatrixDescriber mxd, unsigned int coordNum, Coords *rsp){
+bool diagNumToCoord(MatrixDescriber mxd, unsigned int coordNum, Coords *rsp){
     if(coordNum > mxd.diagNum-1 || coordNum < 0){
         return false;
     }

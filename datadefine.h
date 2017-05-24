@@ -26,12 +26,14 @@ static const bool fillInputWithNum 			= false;
 
 //Parâmetros
 static const float fillElement 				= 1;
-static const int fileElementsAmount 		= 50000;
+static const int fileElementsAmount 		= 99999;
+												
 
 //Valores default
-static const int default_M 					= 100;
-static const int default_N 					= 100;
-static const int default_NumThreads 		= 10;
+static const int default_M 					= 550;
+static const int default_N 					= 550;
+
+static const int default_NumThreads 		= 1;
 
 
 #define defaultInputPath "in.txt"
@@ -39,12 +41,11 @@ static const int default_NumThreads 		= 10;
 
 
 //Tipo de dado que reune diferentes dados
-typedef struct udt{
+typedef
     union{
         pthread_t tid;
         float rsp;
         int value;
-    }dt;
 }UData;
 
 
@@ -68,6 +69,15 @@ typedef struct{
     unsigned int totThreads;
     ArrayDescriber *rspArr;
 }ThreadArgsInfo;
+
+
+typedef struct{
+    MatrixDescriber * mx;
+    ArrayDescriber *rspArr;
+    pthread_mutex_t *lock;
+    unsigned int *contDiag;
+}ThreadArgsInfo1;
+
 
 
 //Informações sobre a execução do programa

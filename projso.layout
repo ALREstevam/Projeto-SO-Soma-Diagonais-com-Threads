@@ -1,42 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="dataStructures\matrix\matrixMngr.h" Top="No" Tabpos="1" TopLine="1">
-			<Cursor Line="10" Column="6"/>
-			<Selection Line="10" Column="16"/>
+		<File Name="dataStructures\array\arrayMngr.c" Top="No" Tabpos="1" TopLine="17">
+			<Cursor Line="47" Column="18"/>
 		</File>
-		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="2" TopLine="110">
-			<Cursor Line="132" Column="18"/>
+		<File Name="main.c" Top="Yes" Tabpos="2" TopLine="92">
+			<Cursor Line="112" Column="48"/>
 		</File>
-		<File Name="util\util.h" Top="No" Tabpos="3" TopLine="1">
-			<Cursor Line="11" Column="7"/>
-			<Selection Line="11" Column="16"/>
+		<File Name="datadefine.h" Top="No" Tabpos="3" TopLine="18">
+			<Cursor Line="34" Column="38"/>
 		</File>
-		<File Name="main.c" Top="Yes" Tabpos="4" TopLine="142">
-			<Cursor Line="153" Column="8"/>
+		<File Name="thread\thread.c" Top="No" Tabpos="4" TopLine="1">
+			<Cursor Line="11" Column="1"/>
 		</File>
-		<File Name="datadefine.h" Top="No" Tabpos="5" TopLine="1">
-			<Cursor Line="12" Column="43"/>
+		<File Name="file\fileMngr.c" Top="No" Tabpos="5" TopLine="41">
+			<Cursor Line="58" Column="28"/>
 		</File>
-		<File Name="thread\thread.c" Top="No" Tabpos="6" TopLine="38">
-			<Cursor Line="65" Column="49"/>
+		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="6" TopLine="77">
+			<Cursor Line="97" Column="1"/>
+			<Selection Line="97" Column="53"/>
 		</File>
-		<File Name="file\fileMngr.c" Top="No" Tabpos="7" TopLine="35">
-			<Cursor Line="42" Column="33"/>
+		<File Name="util\util.h" Top="No" Tabpos="7" TopLine="1">
+			<Cursor Line="1" Column="1"/>
 		</File>
-		<File Name="dataStructures\array\arrayMngr.h" Top="No" Tabpos="8" TopLine="1">
-			<Cursor Line="11" Column="17"/>
-			<Selection Line="11" Column="6"/>
+		<File Name="util\util.c" Top="No" Tabpos="8" TopLine="1">
+			<Cursor Line="8" Column="8"/>
 		</File>
-		<File Name="dataStructures\array\arrayMngr.c" Top="No" Tabpos="9" TopLine="1">
-			<Cursor Line="20" Column="32"/>
-		</File>
-		<File Name="file\fileMngr.h" Top="No" Tabpos="10" TopLine="1">
-			<Cursor Line="11" Column="6"/>
-			<Selection Line="11" Column="22"/>
-		</File>
-		<File Name="util\util.c" Top="No" Tabpos="11" TopLine="40">
-			<Cursor Line="57" Column="4"/>
+		<File Name="trash" Top="No" Tabpos="9" TopLine="144">
+			<Cursor Line="177" Column="1"/>
 		</File>
 	</Files>
 	<Folders>

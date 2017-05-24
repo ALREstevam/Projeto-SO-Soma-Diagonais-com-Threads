@@ -9,65 +9,53 @@
 #include "../dataStructures/array/arrayMngr.h"
 #include "../dataStructures/matrix/matrixMngr.h"
 
-
-//Thread de soma
-void * threadSumFunc(void * args){
-	register int sumCount = 0, elementCount = 0;
-
-    ThreadArgsInfo *targs = (ThreadArgsInfo*)args;//Convertendo os argumentos da thread
-    
-    if(printInfoProcess){printf(ANSI_COLOR_RED"[THREAD %d INICIANDO]\n"ANSI_COLOR_RESET, targs->threadNum);}
-    
-	MatrixDescriber mxa = *(targs->mx);//Colocando em uma variável para deixar mais curto
-    unsigned int jmp;//Tamanho do pulo
-    int numThreads = targs->totThreads;//Quantidade de threads
-    int numDiag = mxa.diagNum;//Quantidade de diagonais
-    Coords coordrsp;
+void * threadSumFunc1(void * args){
+	ThreadArgsInfo1 * tinfo = (ThreadArgsInfo1*) args;//Convertendo argumentos para argumentos de thread
+	int diagProcess;//guardar número da diagonal atual
+	float sum, rsp;//soma, auxiliar
 	
-    float sum, rsp;
-
-    for(jmp = targs->threadNum; jmp <= numDiag; (jmp+=numThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
-        
-		if(!digaNumToCoord(mxa, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
+	//printf("uma thread iniciando!\n");
+	//PEGAR UMA DIAGONAL PARA PROCESSAR
+	while(1){	
+		pthread_mutex_lock(tinfo->lock);//down no mutex
+		 /*Acessando a região crítica*/
+			diagProcess = *(tinfo->contDiag);//pegando o número da diagonal a ser processada
+			*(tinfo->contDiag) += 1;//incrementando a diagonal
+		pthread_mutex_unlock(tinfo->lock);//up no mutex
+		
+		if(diagProcess >= tinfo->mx->diagNum){//Se a diagonal lida não pertencer à matriz
+			break;//para terminar a thread
+		}
+		
+		//PEGAR PRIMEIRO ELEMENTO PARA INICIAR PROCESSAMENTO
+		Coords crds;//coordenadas
+		if(!diagNumToCoord(*(tinfo->mx), diagProcess, &crds)){//converter o número da diagonal para a coordenada do primeiro elemento
+			printf("\n!DIAGTOCOORD!\n");
 			continue;
 		}
-        if(!getElement(mxa, coordrsp, &rsp)){//Acessando primeiro elemento
+		
+		if(!getElement(*(tinfo->mx), crds, &rsp)){//acessar o primeiro elemento
+			printf("\n!GETELEMENT!\n");
 			continue;
 		}
-        sum = rsp;//colocando na soma
-
-
-        while(getNextElementPositionMdiags(mxa, &coordrsp) == true){//enquanto existir um próximo elemento na diagonal
-            if(getElement(mxa, coordrsp, &rsp) == true){//acessando elemento
-                sum += rsp;//adicionando elemento na soma
-            	elementCount++;
-            }
-            else{
-                break;
-            }
-        }
-
-        targs->rspArr->data[jmp].dt.rsp = sum;//gravando resultado na matriz de resultado
-        if(printInfoProcess){printf(ANSI_COLOR_YELLOW"T%d : [DG: %.2d, \tSM: %.2f]\n"ANSI_COLOR_RESET, targs->threadNum, jmp, sum);}
-		sumCount++;
-    }
-    
-    if(printInfoProcess){
-		printf(ANSI_COLOR_GREEN"[Thread %d terminou, fez %d somas]\n"ANSI_COLOR_RESET, targs->threadNum, sumCount);
+		sum = rsp;//definir soma como primeiro
+		
+		
+		
+		
+		//PERCORRENDO ELEMENTOS DA DIAGONAL
+		while(getNextElementPositionMdiags(*(tinfo->mx), &crds) == true){//enquanto existir um próximo elemento na diagonal
+				if(getElement(*(tinfo->mx), crds, &rsp) == true){//acessando elemento
+	                sum += rsp;//adicionando elemento na soma
+				}
+		}
+	//	printf("DIAG[%.3d]\t\tPOS[%.3d,%.3d]\tSUM[%.2f]\n", diagProcess,crds.mpos, crds.npos, sum);
+	
+		tinfo->rspArr->data[diagProcess].rsp = sum;//guardando soma da diagonal processada
 	}
-    	
-	if(generateExecutionData){
-			ThreadExecutionData td;
-			td.tnum = targs->threadNum;
-			td.processedElems = elementCount;
-			td.processedDiags = sumCount;
-			
-			appendToTExecutionFile(DELAULTTHREADEXCSVFILE, td);
-	}
-    	
-    	
-    	
-    	
-    pthread_exit(NULL);//terminando a thread
+	
+//	printf("thread terminando\n");
+	
+	pthread_exit(NULL);//terminando a thread
     return NULL;
 }

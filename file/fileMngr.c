@@ -21,7 +21,7 @@ void fileToMatrix(MatrixDescriber mx,char * filename) {
 			if(!feof(in)) {
 				fscanf(in, "%f ", &value);
 			} else {
-				return;
+				value = (float)(((rand() % 60) / 10.0) * 5);
 			}
 			Coords crd;
 			crd.mpos = i;
@@ -43,7 +43,7 @@ void arrayFloatToFile(ArrayDescriber arr, char * filename) {
 
 	int register i;
 	for(i = 0; i < arr.top+1; i++) {
-		fprintf(out, "%f\n", arr.data[i].dt.rsp);
+		fprintf(out, "%f\n", arr.data[i].rsp);
 	}
 
 	fclose(out);
@@ -56,8 +56,6 @@ void generateRandomFloatFile(char * filename, int qtd) {
 	}
 	register int i;
 	for(i = 0; i < qtd; i++) {
-		//fprintf(fl, "%f ", ((float)rand()/(float)(RAND_MAX)) * 6;
-
 		fprintf(fl, "%f ",  ((float)(rand() % 60) / 10.0) * 5);
 	}
 }
