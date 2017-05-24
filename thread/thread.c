@@ -29,7 +29,7 @@ void * threadSumFunc1(void * args){
 		
 		//PEGAR PRIMEIRO ELEMENTO PARA INICIAR PROCESSAMENTO
 		Coords crds;//coordenadas
-		if(!diagNumToCoord(*(tinfo->mx), diagProcess, &crds)){//converter o número da diagonal para a coordenada do primeiro elemento
+		/*if(!diagNumToCoord(*(tinfo->mx), diagProcess, &crds)){//converter o número da diagonal para a coordenada do primeiro elemento
 			printf("\n!DIAGTOCOORD!\n");
 			continue;
 		}
@@ -37,7 +37,11 @@ void * threadSumFunc1(void * args){
 		if(!getElement(*(tinfo->mx), crds, &rsp)){//acessar o primeiro elemento
 			printf("\n!GETELEMENT!\n");
 			continue;
-		}
+		}*/
+		
+		diagNumToCoord(*(tinfo->mx), diagProcess, &crds);
+		getElement(*(tinfo->mx), crds, &rsp);
+		
 		sum = rsp;//definir soma como primeiro
 		
 		

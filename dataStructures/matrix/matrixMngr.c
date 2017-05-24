@@ -128,8 +128,12 @@ void deleteMatrix(MatrixDescriber *mx){
     register int i;
     for(i = 0; i < mx->m; i++){
         free(mx->data[i]);
+        mx->data[i] = NULL;
     }
     free(mx->data);
+    mx->data = NULL;
+    
+    
 }
 
 //Função que imprime os valores guardados em uma matriz
@@ -138,7 +142,7 @@ void printMatrix(MatrixDescriber mx){
     for(i = 0; i < mx.m; i++){
         for(j = 0; j < mx.n; j++){
             //printf("[(%d,%d) %.2f] ",i,j,mx.data[i][j]);
-            printf("[%.1f] ",mx.data[i][j]);
+            printf("[%4.3g]",mx.data[i][j]);
         }
         printf("\n");
     }

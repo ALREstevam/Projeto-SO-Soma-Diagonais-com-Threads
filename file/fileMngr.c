@@ -21,7 +21,8 @@ void fileToMatrix(MatrixDescriber mx,char * filename) {
 			if(!feof(in)) {
 				fscanf(in, "%f ", &value);
 			} else {
-				value = (float)(((rand() % 60) / 10.0) * 5);
+				//value = (float)(((rand() % 60) / 10.0) * 5);
+				value = 0.0;
 			}
 			Coords crd;
 			crd.mpos = i;

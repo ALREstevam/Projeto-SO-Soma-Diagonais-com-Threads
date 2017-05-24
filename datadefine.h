@@ -4,8 +4,8 @@
 #include <pthread.h>
 #include <stdbool.h>
 
-#define DEFAULTEXDATACSVFILE "_infoData.csv"
-#define DELAULTTHREADEXCSVFILE "_threadEx.csv"
+#define DEFAULTEXDATACSVFILE "generatedData/_infoData.csv"
+#define DELAULTTHREADEXCSVFILE "generatedData/_threadEx.csv"
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -18,7 +18,7 @@
 typedef char* string;
 
 //Valores de configuração
-static const bool getInputFromUser 			= false; //Usar dados do usuário = true, dados default = false
+static const bool getInputFromUser 			= true; //Usar dados do usuário = true, dados default = false
 static const bool generateExecutionData 	= true;//Gerar csv com dados de execução = true, não gerar = false
 static const bool printInfoProcess 			= true;//Fazer prints durante o processamento = true, não fazer = false
 static const bool fillInputWithRandom	 	= false;
@@ -30,8 +30,8 @@ static const int fileElementsAmount 		= 99999;
 												
 
 //Valores default
-static const int default_M 					= 550;
-static const int default_N 					= 550;
+static const int default_M 					= 4;
+static const int default_N 					= 3;
 
 static const int default_NumThreads 		= 1;
 
