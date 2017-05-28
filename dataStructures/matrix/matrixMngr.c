@@ -43,7 +43,7 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
 
 //Função para verificar se uma coordenada existe dentro de uma matriz
 bool coordIsInsideMatrix(MatrixDescriber mx, Coords pos){
-    if(pos.mpos < 0 || pos.npos < 0 || pos.mpos >= mx.m || pos.npos >= mx.n){
+    if(pos.mpos >= mx.m || pos.npos >= mx.n){
         return false;
     }
     return true;
@@ -55,8 +55,8 @@ bool getNextElementPositionMdiags(MatrixDescriber mxd, Coords * excCoord){
     excCoord->mpos++;
 
     if(!coordIsInsideMatrix(mxd, *excCoord)){
-        excCoord->npos--;
-        excCoord->mpos--;
+        //excCoord->npos--;
+        //excCoord->mpos--;
         return false;
     }
 
@@ -64,19 +64,13 @@ bool getNextElementPositionMdiags(MatrixDescriber mxd, Coords * excCoord){
 }
 
 //Função que retorna um elemento da matriz dadas suas coordenadas
-bool getElement(MatrixDescriber mxd, Coords coord, float *rsp){
-
-    //printf("TESTANDO %d %d",coord.mpos, coord.npos);
-
-    if(!coordIsInsideMatrix(mxd, coord)){
-        //printf(" !FALSE! \n");
-        *rsp = -500;
+void getElement(MatrixDescriber mxd, Coords coord, float *rsp){
+    /*if(!coordIsInsideMatrix(mxd, coord)){
         return false;
-    }
-
-    *(rsp) = mxd.data[coord.mpos][coord.npos];
-   // printf(" !TRUE! \n");
-    return true;
+    }*/
+    //int element = *(*(table+row-1)+column-1);
+    //*(rsp) = mxd.data[coord.mpos][coord.npos];
+    *(rsp) = *(*(mxd.data + coord.mpos)+coord.npos);
 }
 
 //Função que converte o número de uma diagonal para suas coordenadas
@@ -105,7 +99,6 @@ void fillMatrix(MatrixDescriber mx, float fillValue){
         for(j = 0; j < mx.n; j++){
             mx.data[i][j] = fillValue;
         }
-
     }
 }
 //Função que preenche toda a matriz com valores aleatórios
@@ -133,7 +126,7 @@ void deleteMatrix(MatrixDescriber *mx){
     register int i;
     for(i = 0; i < mx->m; i++){
         free(mx->data[i]);
-        mx->data[i] = NULL;
+        //mx->data[i] = NULL;
     }
     free(mx->data);
     mx->data = NULL;
@@ -146,7 +139,6 @@ void printMatrix(MatrixDescriber mx){
     register int i, j;
     for(i = 0; i < mx.m; i++){
         for(j = 0; j < mx.n; j++){
-            //printf("[(%d,%d) %.2f] ",i,j,mx.data[i][j]);
             printf("[%4.3g]",mx.data[i][j]);
         }
         printf("\n");

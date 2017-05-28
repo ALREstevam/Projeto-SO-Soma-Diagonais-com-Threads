@@ -74,7 +74,7 @@ typedef struct
 
 //Tipo de dado para guardar coordenadas de uma matriz
 typedef struct {
-    int mpos, npos;
+    unsigned short int mpos, npos;
 }Coords;
 
 //Informações de processamento para cada thread

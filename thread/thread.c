@@ -4,21 +4,19 @@
 #include <pthread.h>
 #include <unistd.h>
 
+
 #include "thread.h"
+
 #include "../util/util.h"
 #include "../datadefine.h"
 #include "../dataStructures/array/arrayMngr.h"
 #include "../dataStructures/matrix/matrixMngr.h"
 
 void * threadSumFunc(void * args){
+	//printf("[ THREAD %d ]<(  Thread iniciando  )\n", pthread_self());	
 	ThreadArgsInfo * tinfo = (ThreadArgsInfo*) args;//Convertendo argumentos para argumentos de thread
 	unsigned short int diagProcess;//guardar número da diagonal atual
 	float sum, rsp;//soma, auxiliar
-
-
-	// threadSays(pthread_self(), "INICIANDO!");
-
-	
 	//PEGAR UMA DIAGONAL PARA PROCESSAR
 	while(1){	
 		Coords crds;//coordenadas
@@ -27,9 +25,9 @@ void * threadSumFunc(void * args){
 			//*(tinfo->contDiag) ++;//incrementando a diagonal
 		pthread_mutex_unlock(tinfo->lock);//up no mutex
 		
-		if(diagProcess >= tinfo->mx->diagNum){//Se a diagonal lida não pertencer à matriz
+		if(diagProcess >= tinfo->mx->diagNum)//Se a diagonal lida não pertencer à matriz
 			break;//para terminar a thread
-		}
+		
 		//PEGAR PRIMEIRO ELEMENTO PARA INICIAR PROCESSAMENTO
 		
 		diagNumToCoord(*(tinfo->mx), diagProcess, &crds);
@@ -39,14 +37,14 @@ void * threadSumFunc(void * args){
 		
 		//PERCORRENDO ELEMENTOS DA DIAGONAL
 		while(getNextElementPositionMdiags(*(tinfo->mx), &crds)){//enquanto existir um próximo elemento na diagonal
-				if(getElement(*(tinfo->mx), crds, &rsp)){//acessando elemento
-	                sum += rsp;//adicionando elemento na soma
-				}
+			getElement(*(tinfo->mx), crds, &rsp);//acessando elemento
+			sum += rsp;//adicionando elemento na soma
+					//printf("[ THREAD %d ]<(  Fazendo uma soma  )\n", pthread_self());	
 		}
 		tinfo->rspArr->data[diagProcess].rsp = sum;//guardando soma da diagonal processada
-		//threadSays(pthread_self(), "FIZ UMA SOMA!");
+		
 	}	
-	//threadSays(pthread_self(), "TERMINANDO!");
+	//printf("[ THREAD %d ]<(  Thread terminando  )\n", pthread_self());	
 	pthread_exit(NULL);//terminando a thread
     return NULL;
 }

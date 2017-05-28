@@ -118,13 +118,14 @@ double exec(unsigned int thrdqtd, unsigned int matrixM, unsigned int matrixN){
 	
 	
 	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
-	printf("%c  PRIM. ELEM.\t%c NUM. DA DIAG.\t%c       SOMA\t   %c\n",179,179,179,179);
+	printf("+---------------+---------------+------------------+\n");
+	printf("%c  PRIM. ELEM.\t%c NUM. DA DIAG.\t%c       SOMA\t   %c\n",'|','|','|','|');
     for(i = 0; i < matrix.diagNum; i++){
     	Coords c;
     	diagNumToCoord(matrix, i, &c);
-        printf("%c(%3d,%3d)\t%c\t%4d\t%c\t%.7g\t   %c\n",179,c.mpos, c.npos,179, i,179, rspArr.data[i].rsp,179);
-	}
-	printf("---------------------------------------------------------\n");
+        printf("%c(%3d,%3d)\t%c\t%4d\t%c\t%.7g\t   %c\n",'|',c.mpos, c.npos,'|', i,'|', rspArr.data[i].rsp,'|');
+	}														   +						
+	printf("+---------------+---------------+------------------+\n");
     
     elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
     printf("[TEMPO GASTO: %.2lf ms  | \tTHREADS: %d]\n", elapsedTime, numThreads);
