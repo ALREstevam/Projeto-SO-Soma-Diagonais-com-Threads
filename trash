@@ -174,3 +174,70 @@ void * threadSumFunc(void * args){
 }
 
 
+/*
+int nomain(){
+	int tcount, loopcount, maxt = 10, maxloop = 40;
+	double med = 0;
+	FILE *fl = fopen("data1.csv", "w");
+	
+	for(tcount = 1; tcount < maxt; tcount++){
+		for(loopcount = 0; loopcount < maxloop; loopcount++){
+			med += exec(tcount);
+		}
+		fprintf(fl, "%d; %lf\n",tcount, (med/loopcount));
+		med = 0;
+	}
+	return 0;
+}
+
+int anomain(){
+	int tcount, loopcount, maxt = 4000, maxloop = 40;
+	double med = 0;
+	FILE *fl = fopen("data1.csv", "w");
+	
+	for(tcount = 1; tcount < maxt; tcount *= 2){
+		for(loopcount = 0; loopcount < maxloop; loopcount++){
+			med += exec(tcount);
+		}
+		printf("%d\n",tcount);
+		fprintf(fl, "%d; %lf\n",tcount, (med/loopcount));
+		med = 0;
+	}
+	return 0;
+}
+*/
+
+void appendToTExecutionFile(char * filename, ThreadExecutionData ted){
+	FILE * fl = fopen(filename, "a+");
+	
+	fprintf(fl, "T%d;%d;%d\n",ted.tnum, ted.processedElems, ted.processedDiags);
+	fclose(fl);
+}
+
+void putHeader(char * filename, char * csvheader){
+	FILE * fl = fopen(filename, "a+");
+
+	fprintf(fl, "%s",csvheader);
+	fclose(fl);	
+}
+
+//Função que grava um tipo de dado com informações da execução do programa em um arquivo .csv
+void executionDataToCSV(ExecutionData exd, char * fileName){
+	FILE *csvData = fopen(fileName, "a+");
+	
+	if(csvData == NULL){
+		return;
+	}
+	char str[10];
+	sprintf(str, "%.2lf", exd.elapsedTime);
+	strsubstchar(str, '.', ',');
+	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.diags, exd.numThreads);
+	fclose(csvData);
+}
+
+typedef struct{
+    MatrixDescriber * mx;
+    unsigned short int threadNum;
+    unsigned int totThreads;
+    ArrayDescriber *rspArr;
+}ThreadArgsInfo;

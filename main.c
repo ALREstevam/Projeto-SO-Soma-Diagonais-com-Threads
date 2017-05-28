@@ -13,7 +13,6 @@ DETALHES SOBRE O FUNCIONAMENTO:
 
 -Booleanos
 getInputFromUser       se ativado o programa perguntará ao usuário as dimensões da matriz e a quantidade de threads a usar		
-generateExecutionData  se ativado o programa irá gerar e armazenar em arquivo dados sobre a execução
 printInfoProcess 	   se ativado o programa irá imprimir informações sobre o processamento
 fillInputWithRandom	   se ativado o programa irá preencher a entrada padrão com valores aleatórios
 fillInputWithNum 	   se ativado o programa irá preencher a entrada padrão com um determinado valor
@@ -65,28 +64,26 @@ pertence à matriz.
 #include "thread/thread.h"//Biblioteca contendo funções executadas por threads
 #include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
 
-double exec(int nt){	
+double exec(unsigned int thrdqtd, unsigned int matrixM, unsigned int matrixN){	
+	
+
+	
+	//DECLARAÇÃO DE VARIÁVEIS
 	time_t tStart = 0, tEnd = 0;//Declarando relógios
 	pthread_mutex_t lock;//Declarando mutex
 	pthread_mutex_init(&lock, NULL);//Iniciando mutex
-	unsigned int diagNum = 0;//Definindo área crítica
-	int auxm, auxn, numThreads;//Auxiliares
+	unsigned short int diagNum = 0;//Definindo área crítica
+	int auxm, auxn;//Auxiliares
+	unsigned short int numThreads;
 	double elapsedTime;//Armazenamento do tempo gasto
+	register int i;
 	
+	auxm = matrixM;
+	auxn = matrixN;
+	numThreads = thrdqtd;
 	
-	//Se requerir entrada do usuário estiver ativado
-	if(getInputFromUser){
-		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
-		
-		scanf("%d %d %d",&auxm, &auxn, &numThreads);
-		getchar();	
-	}else{//Definição dos valores default
-		auxm = default_M;
-		auxn = default_N;
-		//numThreads = default_NumThreads;
-		numThreads = nt;
-	}
-
+	tStart = clock();//Disparando relógio
+	
 	//Definindo vetores e matrizes
     MatrixDescriber matrix;
     ArrayDescriber rspArr;
@@ -94,26 +91,23 @@ double exec(int nt){
 
 	//Criando vetores e matrizes
 	createMatrix(&matrix, auxm, auxn);
-    createArray(&rspArr, matrix.diagNum);
+    createArray(&rspArr, (int)matrix.diagNum);
 	createArray(&tidArr, numThreads);
 	rspArr.top = matrix.diagNum-1;
 	
 	//Lendo arquivo de entrada
     fileToMatrix(matrix, defaultInputPath);
 	
-	ThreadArgsInfo1 targs;
+	ThreadArgsInfo targs;
 	targs.mx = &matrix;
 	targs.rspArr = &rspArr;
 	targs.lock = &lock;
 	targs.contDiag = &diagNum;
 		
-	register int i;
 	
-	tStart = clock();//Disparando relógio
 	for(i = 0; i < numThreads; i++){
-		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc1, &targs);
+		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc, &targs);
 	}
-
 	for(i = 0; i < numThreads; i++){
 		pthread_join(tidArr.data[i].tid, NULL);
 	}
@@ -122,7 +116,6 @@ double exec(int nt){
 	
 	arrayFloatToFile(rspArr, defaultOutputPath);
 	
-	printMatrix(matrix);
 	
 	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
 	printf("%c  PRIM. ELEM.\t%c NUM. DA DIAG.\t%c       SOMA\t   %c\n",179,179,179,179);
@@ -131,54 +124,70 @@ double exec(int nt){
     	diagNumToCoord(matrix, i, &c);
         printf("%c(%3d,%3d)\t%c\t%4d\t%c\t%.7g\t   %c\n",179,c.mpos, c.npos,179, i,179, rspArr.data[i].rsp,179);
 	}
+	printf("---------------------------------------------------------\n");
+    
+    elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
+    printf("[TEMPO GASTO: %.2lf ms  | \tTHREADS: %d]\n", elapsedTime, numThreads);
     
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
- 	
  	deleteArray(&rspArr);
 	deleteArray(&tidArr);
-
-	elapsedTime = difftime(tEnd, tStart);//Calculando tempo gasto
-	printf("\n[TEMPO GASTO: %.2lf s]\n", elapsedTime);
 	
-	/*FILE *fl = fopen("data.csv","a+");
-	fprintf(fl, "%d; %f\n", numThreads, elapsedTime);*/
 	return elapsedTime;
 }
 
 int nomain(){
-	int tcount, loopcount, maxt = 10, maxloop = 40;
-	double med = 0;
-	FILE *fl = fopen("data1.csv", "w");
+	unsigned int auxm, auxn, numThreads, threadCount;
+	unsigned short register int i;
+	int loops = 100;
+	double med;
 	
-	for(tcount = 1; tcount < maxt; tcount++){
-		for(loopcount = 0; loopcount < maxloop; loopcount++){
-			med += exec(tcount);
-		}
-		fprintf(fl, "%d; %lf\n",tcount, (med/loopcount));
-		med = 0;
+	//Se requerir entrada do usuário estiver ativado
+	if(getInputFromUser){
+		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
+		scanf("%d %d %d",&auxm, &auxn, &numThreads);
+		printf("\nMATRIX m x n: [%d,%d]\nTHREADS: %d\n\n",auxm,auxn, numThreads);	
+		pause();
+	}else{//Definição dos valores default
+		auxm = default_M;
+		auxn = default_N;
+		numThreads = default_NumThreads;
 	}
-	return 0;
-}
-
-int anomain(){
-	int tcount, loopcount, maxt = 4000, maxloop = 40;
-	double med = 0;
-	FILE *fl = fopen("data1.csv", "w");
 	
-	for(tcount = 1; tcount < maxt; tcount *= 2){
-		for(loopcount = 0; loopcount < maxloop; loopcount++){
-			med += exec(tcount);
+	//for(threadCount = 1; threadCount < 4096; threadCount *= 2){
+	for(threadCount = 1; threadCount < 16; threadCount++){
+		for(i = 1; i < loops; i++){
+			printf("[ %03d | ",i);
+			med = exec(threadCount, auxm, auxn);
 		}
-		printf("%d\n",tcount);
-		fprintf(fl, "%d; %lf\n",tcount, (med/loopcount));
-		med = 0;
+		med /= loops;
+		printf("\n----------------------------------------------------\n");
+		printf("TEMPO MEDIO: %s ms | \tTHREADS: %03d ]", dotToCommaDouble(med), threadCount);
+		printf("\n----------------------------------------------------\n");
+		FILE * fl = fopen("time.csv", "a+");
+		fprintf(fl,"THREADS;%d;TEMPO;%s;LOOPS;%d\n",threadCount, dotToCommaDouble(med),loops);
 	}
-	return 0;
+return 0;
 }
 
 int main(){
-	exec(5);
+	unsigned int auxm, auxn, numThreads;
+
+	//Se requerir entrada do usuário estiver ativado
+	if(getInputFromUser){
+		printf("Digite os valores:\n<linhas> <colunas> <qtd. de threads>\n");
+		scanf("%d %d %d",&auxm, &auxn, &numThreads);
+		printf("\nMATRIZ m x n: [%d,%d]\nTHREADS: %d\n\n",auxm,auxn, numThreads);
+		getchar();
+		pause();
+	}else{//Definição dos valores default
+		auxm = default_M;
+		auxn = default_N;
+		numThreads = default_NumThreads;
+	}	
 	
-	return 0;
+	exec(numThreads, auxm, auxn);
+return 0;
 }
+

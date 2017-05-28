@@ -3,6 +3,7 @@
 #include <time.h>
 #include "../datadefine.h"
 #include "../file/fileMngr.h"
+#include <pthread.h>
 
 void strsubstchar(char * source, char find, char replace){
 	int i;
@@ -13,18 +14,46 @@ void strsubstchar(char * source, char find, char replace){
 	}
 }
 
-//Função que grava um tipo de dado com informações da execução do programa em um arquivo .csv
-void executionDataToCSV(ExecutionData exd, char * fileName){
-	FILE *csvData = fopen(fileName, "a+");
+char * dotToCommaFloat(float num){
+	int i, part = (int)num, size;
 	
-	if(csvData == NULL){
-		return;
+	for(i = 0; part != 0; i++){
+		part /= 10;
 	}
-	char str[10];
-	sprintf(str, "%.2lf", exd.elapsedTime);
-	strsubstchar(str, '.', ',');
-	fprintf(csvData, "%s; %d; %d; %d; %d\n",str, exd.m, exd.n, exd.diags, exd.numThreads);
-	fclose(csvData);
+	
+	size = 1 + 5 + i;
+	char * str  = (char*) malloc(size * sizeof(char));
+	
+	sprintf(str, "%.5f", num);
+	
+	for(i = 0; i < size; i++){
+		if(str[i] == '.'){
+			str[i] = ',';
+		}
+	}
+	
+	return str;
+}
+
+char * dotToCommaDouble(double num){
+	int i, part = (int)num, size;
+	
+	for(i = 0; part != 0; i++){
+		part /= 10;
+	}
+	
+	size = 1 + 10 + i;
+	char * str  = (char*) malloc(size * sizeof(char));
+	
+	sprintf(str, "%.10lf", num);
+	
+	for(i = 0; i < size; i++){
+		if(str[i] == '.'){
+			str[i] = ',';
+		}
+	}
+	
+	return str;
 }
 
 
@@ -36,24 +65,10 @@ double timediff(clock_t t1, clock_t t2){
 }
 
 void pause(){
-	printf("\nPressione enter para continuar...");
+	printf("\nPressione enter para continuar...\n");
 	getchar();
 }
 
-
-void appendToTExecutionFile(char * filename, ThreadExecutionData ted){
-	FILE * fl = fopen(filename, "a+");
-	
-	fprintf(fl, "T%d;%d;%d\n",ted.tnum, ted.processedElems, ted.processedDiags);
-	fclose(fl);
-}
-
-void putHeader(char * filename, char * csvheader){
-	FILE * fl = fopen(filename, "a+");
-
-	fprintf(fl, "%s",csvheader);
-	fclose(fl);	
-}
 
 void setConfig(bool fllinrnd, bool fllinnum, float flelem, int qtd, char * definpath){
 	if(fllinrnd){
@@ -62,9 +77,6 @@ void setConfig(bool fllinrnd, bool fllinnum, float flelem, int qtd, char * defin
 		fillFileWithValue(definpath, qtd, flelem);
 	}
 }
-
-
-
 
 
 

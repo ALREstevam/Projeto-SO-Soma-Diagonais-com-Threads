@@ -3,11 +3,10 @@
 	#include "../datadefine.h"
 
 	//Protótipos
-	void executionDataToCSV(ExecutionData exd, char * fileName);
-	long timediff(clock_t t1, clock_t t2);
-	void pause();
-	void appendToMedFile(char * filename, int threads, double time);
-	void appendToTExecutionFile(char * filename, ThreadExecutionData ted);
-	void putHeader(char * filename, char * csvheader);
-	
+	long timediff(clock_t t1, clock_t t2);//Calcula tempo entre dois intervalos
+	void pause();//Mostra uma mensagem de pausa
+	char * dotToCommaDouble(double num);//recebe um double e retorna uma string trocano "." por ","
+	char * dotToCommaFloat(float num);//recebe um floar e retorna uma string trocano "." por ","
+
+
 #endif

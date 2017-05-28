@@ -1,43 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="dataStructures\array\arrayMngr.c" Top="No" Tabpos="1" TopLine="17">
+		<File Name="dataStructures\array\arrayMngr.c" Top="No" Tabpos="1" TopLine="1">
 			<Cursor Line="48" Column="19"/>
 		</File>
-		<File Name="main.c" Top="No" Tabpos="2" TopLine="105">
-			<Cursor Line="132" Column="113"/>
+		<File Name="main.c" Top="No" Tabpos="2" TopLine="88">
+			<Cursor Line="101" Column="16"/>
 		</File>
-		<File Name="datadefine.h" Top="No" Tabpos="3" TopLine="1">
-			<Cursor Line="21" Column="1"/>
-			<Selection Line="36" Column="43"/>
+		<File Name="thread\thread.c" Top="Yes" Tabpos="3" TopLine="26">
+			<Cursor Line="49" Column="4"/>
 		</File>
-		<File Name="thread\thread.c" Top="No" Tabpos="4" TopLine="1">
-			<Cursor Line="43" Column="40"/>
-		</File>
-		<File Name="file\fileMngr.c" Top="No" Tabpos="5" TopLine="7">
+		<File Name="file\fileMngr.c" Top="No" Tabpos="4" TopLine="1">
 			<Cursor Line="25" Column="17"/>
 		</File>
-		<File Name="dataStructures\matrix\matrixMngr.c" Top="Yes" Tabpos="6" TopLine="114">
-			<Cursor Line="133" Column="20"/>
+		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="5" TopLine="7">
+			<Cursor Line="34" Column="11"/>
 		</File>
-		<File Name="util\util.h" Top="No" Tabpos="7" TopLine="1">
+		<File Name="util\util.c" Top="No" Tabpos="6" TopLine="57">
+			<Cursor Line="64" Column="20"/>
+		</File>
+		<File Name="dataStructures\array\arrayMngr.h" Top="No" Tabpos="7" TopLine="1">
 			<Cursor Line="1" Column="1"/>
 		</File>
-		<File Name="util\util.c" Top="No" Tabpos="8" TopLine="1">
-			<Cursor Line="8" Column="8"/>
-		</File>
-		<File Name="trash" Top="No" Tabpos="9" TopLine="144">
-			<Cursor Line="177" Column="1"/>
-		</File>
-		<File Name="file\fileMngr.h" Top="No" Tabpos="10" TopLine="1">
+		<File Name="dataStructures\matrix\matrixMngr.h" Top="No" Tabpos="8" TopLine="1">
 			<Cursor Line="1" Column="1"/>
 		</File>
-		<File Name="dataStructures\array\arrayMngr.h" Top="No" Tabpos="11" TopLine="1">
-			<Cursor Line="1" Column="1"/>
+		<File Name="trash" Top="No" Tabpos="9" TopLine="217">
+			<Cursor Line="243" Column="17"/>
+		</File>
+		<File Name="datadefine.h" Top="No" Tabpos="10" TopLine="52">
+			<Cursor Line="64" Column="16"/>
 		</File>
 	</Files>
 	<Folders>
-		<Folder Name="thread" Expanded="Yes"/>
 		<Folder Name="file" Expanded="Yes"/>
 		<Folder Name="dataStructures" Expanded="Yes"/>
 		<Folder Name="dataStructures\array" Expanded="Yes"/>

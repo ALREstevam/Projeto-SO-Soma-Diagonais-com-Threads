@@ -1,11 +1,7 @@
 #ifndef PROJSOTEST_DATADEFINE_H
 #define PROJSOTEST_DATADEFINE_H
-
 #include <pthread.h>
 #include <stdbool.h>
-
-#define DEFAULTEXDATACSVFILE "generatedData/_infoData.csv"
-#define DELAULTTHREADEXCSVFILE "generatedData/_threadEx.csv"
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -15,11 +11,8 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-typedef char* string;
-
 //Valores de configuração
 static const bool getInputFromUser 			= true; //Usar dados do usuário = true, dados default = false
-static const bool generateExecutionData 	= true;//Gerar csv com dados de execução = true, não gerar = false
 static const bool printInfoProcess 			= true;//Fazer prints durante o processamento = true, não fazer = false
 static const bool fillInputWithRandom	 	= false;
 static const bool fillInputWithNum 			= false;
@@ -30,10 +23,10 @@ static const int fileElementsAmount 		= 99999;
 												
 
 //Valores default
-static const int default_M 					= 4;
-static const int default_N 					= 3;
+static const int default_M 					= 500;
+static const int default_N 					= 500;
 
-static const int default_NumThreads 		= 1;
+static const int default_NumThreads 		= 4;
 
 
 #define defaultInputPath "in.txt"
@@ -65,18 +58,10 @@ typedef struct{
 //Argumentos para thread de soma
 typedef struct{
     MatrixDescriber * mx;
-    unsigned short int threadNum;
-    unsigned int totThreads;
-    ArrayDescriber *rspArr;
-}ThreadArgsInfo;
-
-
-typedef struct{
-    MatrixDescriber * mx;
     ArrayDescriber *rspArr;
     pthread_mutex_t *lock;
-    unsigned int *contDiag;
-}ThreadArgsInfo1;
+    unsigned short int *contDiag;
+}ThreadArgsInfo;
 
 
 

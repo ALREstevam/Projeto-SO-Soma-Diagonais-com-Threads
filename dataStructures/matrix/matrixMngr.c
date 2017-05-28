@@ -18,7 +18,10 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
     matrix->data = malloc(m * sizeof(float*));
     
     if(matrix->data == NULL){
-		printf("Erro 1 ao alocar matriz\n");
+		//printf("Erro 1 ao alocar matriz\n");
+		
+		fprintf(stderr, "Erro 1 ao alocar matriz\n");
+		exit(-1);
 		getchar();
 		return false;
 	}
@@ -27,7 +30,9 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
     for(i = 0; i < m; i++){
         matrix->data[i] = malloc(n * sizeof(float));
         if(matrix->data[i] == NULL){
-			printf("Erro 2 ao alocar matriz\n");
+			fprintf(stderr, "Erro 2 ao alocar matriz\n");
+			exit(-2);
+			
 			getchar();
 			return false;
 		}
