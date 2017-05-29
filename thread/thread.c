@@ -3,19 +3,17 @@
 #include <stdbool.h>
 #include <pthread.h>
 #include <unistd.h>
-
-
 #include "thread.h"
-
 #include "../util/util.h"
 #include "../datadefine.h"
 #include "../dataStructures/array/arrayMngr.h"
 #include "../dataStructures/matrix/matrixMngr.h"
 
 void * threadSumFunc(void * args){
-	//printf("[ THREAD %d ]<(  Thread iniciando  )\n", pthread_self());	
 	ThreadArgsInfo * tinfo = (ThreadArgsInfo*) args;//Convertendo argumentos para argumentos de thread
 	unsigned short int diagProcess;//guardar número da diagonal atual
+	unsigned int * contProcess = (unsigned int *) malloc(sizeof(unsigned int));
+	*(contProcess) = 0;
 	float sum, rsp;//soma, auxiliar
 	//PEGAR UMA DIAGONAL PARA PROCESSAR
 	while(1){	
@@ -34,17 +32,16 @@ void * threadSumFunc(void * args){
 		getElement(*(tinfo->mx), crds, &rsp);
 		
 		sum = rsp;//definir soma como primeiro
-		
+		(*(contProcess))++;
 		//PERCORRENDO ELEMENTOS DA DIAGONAL
 		while(getNextElementPositionMdiags(*(tinfo->mx), &crds)){//enquanto existir um próximo elemento na diagonal
 			getElement(*(tinfo->mx), crds, &rsp);//acessando elemento
 			sum += rsp;//adicionando elemento na soma
-					//printf("[ THREAD %d ]<(  Fazendo uma soma  )\n", pthread_self());	
+			(*(contProcess))++;	
 		}
 		tinfo->rspArr->data[diagProcess].rsp = sum;//guardando soma da diagonal processada
-		
-	}	
-	//printf("[ THREAD %d ]<(  Thread terminando  )\n", pthread_self());	
-	pthread_exit(NULL);//terminando a thread
+	}
+	//printf("<%hu>\n", *contProcess);
+	pthread_exit(contProcess);//terminando a thread
     return NULL;
 }

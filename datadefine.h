@@ -63,26 +63,22 @@ typedef struct{
     unsigned short int *contDiag;
 }ThreadArgsInfo;
 
-
-
-//Informações sobre a execução do programa
-typedef struct 
-{
-	double elapsedTime;
-	int m, n, diags, numThreads;
-}ExecutionData;
-
 //Tipo de dado para guardar coordenadas de uma matriz
 typedef struct {
     unsigned short int mpos, npos;
 }Coords;
 
-//Informações de processamento para cada thread
 typedef struct{
-	int tnum;
-	int processedElems;
-	int processedDiags;
-}ThreadExecutionData;
+	double elapsedTime;
+	unsigned short int requiredThreads;
+	int usedThreads;
+	int createdTheads;
+	unsigned short int m;
+	unsigned short int n;
+	unsigned int diagonals;
+}DataCollector;
+
+
 
 
 

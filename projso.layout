@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout>
 	<Files>
-		<File Name="main.c" Top="Yes" Tabpos="1" TopLine="109">
-			<Cursor Line="116" Column="2"/>
+		<File Name="main.c" Top="Yes" Tabpos="1" TopLine="106">
+			<Cursor Line="120" Column="31"/>
 		</File>
-		<File Name="thread\thread.c" Top="No" Tabpos="2" TopLine="14">
-			<Cursor Line="43" Column="3"/>
+		<File Name="thread\thread.c" Top="No" Tabpos="2" TopLine="21">
+			<Cursor Line="15" Column="77"/>
 		</File>
-		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="3" TopLine="111">
-			<Cursor Line="141" Column="35"/>
+		<File Name="datadefine.h" Top="No" Tabpos="3" TopLine="60">
+			<Cursor Line="75" Column="20"/>
 		</File>
-		<File Name="dataStructures\matrix\matrixMngr.h" Top="No" Tabpos="4" TopLine="1">
-			<Cursor Line="19" Column="1"/>
+		<File Name="dataStructures\matrix\matrixMngr.c" Top="No" Tabpos="4" TopLine="111">
+			<Cursor Line="111" Column="6"/>
+		</File>
+		<File Name="util\util.c" Top="No" Tabpos="5" TopLine="36">
+			<Cursor Line="51" Column="1"/>
+		</File>
+		<File Name="util\util.h" Top="No" Tabpos="6" TopLine="1">
+			<Cursor Line="8" Column="9"/>
+			<Selection Line="8" Column="25"/>
 		</File>
 	</Files>
 	<Folders>
