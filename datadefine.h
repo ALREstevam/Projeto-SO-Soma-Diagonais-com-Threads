@@ -11,9 +11,9 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-//Valores de configuração
-static const bool getInputFromUser 			= true; //Usar dados do usuário = true, dados default = false
-static const bool printInfoProcess 			= true;//Fazer prints durante o processamento = true, não fazer = false
+//Valores de configuraï¿½ï¿½o
+static const bool getInputFromUser 			= true; //Usar dados do usuï¿½rio = true, dados default = false
+static const bool printInfoProcess 			= true;//Fazer prints durante o processamento = true, nï¿½o fazer = false
 static const bool fillInputWithRandom	 	= false;
 static const bool fillInputWithNum 			= false;
 
@@ -40,7 +40,7 @@ typedef
 //Descritor de matriz
 typedef struct mxdccb{
     float ** data;
-    int m, n, diagNum;
+    unsigned short int m, n, diagNum;
 }MatrixDescriber;
 
 //Descritor de vetor
@@ -71,7 +71,7 @@ typedef struct {
     unsigned short int mpos, npos;
 }Coords;
 
-//Tipo de dado para armazenar entradas do usuário
+//Tipo de dado para armazenar entradas do usuï¿½rio
 typedef struct 
 {
 	int numThreads;

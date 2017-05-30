@@ -70,6 +70,8 @@ void execMethod_a(Input in, DataCollector *rsp){
 	pthread_mutex_destroy(&lock);//destruindo o mutex	
 	arrayFloatToFile(rspArr, defaultOutputPath);
 	
+	OutputSum(&matrix, &rspArr);
+	
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
  	deleteArray(&rspArr);
@@ -123,8 +125,7 @@ void execMethod_b(Input in, DataCollector *rsp){
     }
 
 	for(i = 0; i < in.numThreads; i++){
-		pthread_join(tidArr.data[i].tid, (void**)proc);
-				
+		pthread_join(tidArr.data[i].tid, (void**)proc);		
 		/*printf("[ THREAD  %3d ][SOMAS: %6d]", i, *(proc));
 		for(j = 0; j < ( 100*(*(proc)/ (in.matrixm*in.matrixn))); j++){
 			printf("#");

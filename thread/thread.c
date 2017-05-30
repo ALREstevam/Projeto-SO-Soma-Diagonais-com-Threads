@@ -91,15 +91,18 @@ void * threadSumFunc_meth2(void * args){
     float sum, rsp;
 
     for(jmp = targs->threadNum; jmp <= numDiag; (jmp+=numThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
+        printf(">%d \n", targs->threadNum);
         
 		if(!diagNumToCoord(mxa, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
 			getElement(mxa, coordrsp, &sum);
 			continue;
+			printf("#%d \n", targs->threadNum);
 		}
         
         while(getNextElemPos(mxa, &coordrsp)){//enquanto existir um próximo elemento na diagonal
             getElement(mxa, coordrsp, &rsp);//acessando elemento
 			sum += rsp;//adicionando elemento na soma
+			printf("*%d \n", targs->threadNum);
         }
 
         targs->rspArr->data[jmp].rsp = sum;//gravando resultado na matriz de resultado

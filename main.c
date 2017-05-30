@@ -77,7 +77,8 @@ int main(){
 	
 	tstart = clock();
 	//
-		execMethod_b(in, &dt);
+		//execMethod_b(in, &dt);
+		execMethod_a(in, &dt);
 	//
 	tend = clock();
 	timeTaken = difftime(tend, tstart);
