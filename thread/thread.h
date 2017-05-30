@@ -7,6 +7,7 @@
 
 #include "../datadefine.h"
 
-void * threadSumFunc(void * args);
+void * threadSumFunc_meth1(void * args);
+void * threadSumFunc_meth2(void * args);
 
 #endif //PROJSOTEST_THREAD_H

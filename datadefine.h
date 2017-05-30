@@ -17,11 +17,6 @@ static const bool printInfoProcess 			= true;//Fazer prints durante o processame
 static const bool fillInputWithRandom	 	= false;
 static const bool fillInputWithNum 			= false;
 
-//Parâmetros
-static const float fillElement 				= 1;
-static const int fileElementsAmount 		= 99999;
-												
-
 //Valores default
 static const int default_M 					= 500;
 static const int default_N 					= 500;
@@ -61,12 +56,28 @@ typedef struct{
     ArrayDescriber *rspArr;
     pthread_mutex_t *lock;
     unsigned short int *contDiag;
-}ThreadArgsInfo;
+}ThreadArgsInfo_m1;
+
+typedef struct{
+    MatrixDescriber * mx;
+    unsigned short int threadNum;
+    unsigned int totThreads;
+    ArrayDescriber *rspArr;
+}ThreadArgsInfo_m2;
+
 
 //Tipo de dado para guardar coordenadas de uma matriz
 typedef struct {
     unsigned short int mpos, npos;
 }Coords;
+
+//Tipo de dado para armazenar entradas do usuário
+typedef struct 
+{
+	int numThreads;
+	int matrixm;
+	int matrixn; 
+}Input;
 
 typedef struct{
 	double elapsedTime;

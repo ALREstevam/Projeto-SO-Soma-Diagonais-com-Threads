@@ -7,6 +7,10 @@
 #include "../datadefine.h"
 #include "../dataStructures/matrix/matrixMngr.h"
 
+//Parâmetros
+static const float fillElement 				= 1;
+static const int fileElementsAmount 		= 99999;
+
 void fileToMatrix(MatrixDescriber mx, char * filename);
 void arrayFloatToFile(ArrayDescriber arr, char * filename);
 void generateRandomFloatFile(char * filename, int qtd);

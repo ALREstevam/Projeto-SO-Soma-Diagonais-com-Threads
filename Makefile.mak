@@ -2,6 +2,7 @@ CC     = gcc
 RM     = rm -f
 OBJS   = main.o \
          thread/thread.o \
+         thread/callThread.o \
          file/fileMngr.o \
          dataStructures/array/arrayMngr.o \
          dataStructures/matrix/matrixMngr.o \
@@ -23,10 +24,13 @@ clean-after:
 projso.exe: $(OBJS)
 	$(CC) -Wall -s -o $@ $(OBJS) $(LIBS)
 
-main.o: main.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h
+main.o: main.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h thread/callThread.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
 thread/thread.o: thread/thread.c thread/thread.h util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h
+	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
+
+thread/callThread.o: thread/callThread.c thread/thread.h util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h file/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
 file/fileMngr.o: file/fileMngr.c file/fileMngr.h datadefine.h dataStructures/matrix/matrixMngr.h

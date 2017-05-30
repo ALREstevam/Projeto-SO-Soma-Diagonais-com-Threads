@@ -19,6 +19,8 @@
 		<Folder Name="thread">
 			<File Name="thread.c"/>
 			<File Name="thread.h"/>
+			<File Name="callThread.c"/>
+			<File Name="callThread.h"/>
 		</Folder>
 		<Folder Name="file">
 			<File Name="fileMngr.c"/>

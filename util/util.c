@@ -64,7 +64,7 @@ double timediff(clock_t t1, clock_t t2){
     return elapsed;
 }
 
-void pause(){
+void pauseMsg(){
 	printf("\nPressione enter para continuar...\n");
 	getchar();
 }
@@ -78,5 +78,33 @@ void setConfig(bool fllinrnd, bool fllinnum, float flelem, int qtd, char * defin
 	}
 }
 
+Input inputFromUser(){
+	Input rsp;
+	
+	printf("Numero de threads: ");
+	fscanf(stdin,"%d",&rsp.numThreads);
+	printf("Matriz (m linhas): ");
+	fscanf(stdin, "\n%d", &rsp.matrixm);
+	printf("Matriz (n colunas): ");
+	fscanf(stdin, "\n%d", &rsp.matrixn);
+	getchar();
+	printf("\n[ VOCE ESCOLHEU ]\nTHREADS: %d\nMATRIZ(m X n): (%d X %d)\n", rsp.numThreads, rsp.matrixm, rsp.matrixn);
+	
+	pauseMsg();
+	return rsp;
+}
+
+void OutputSum(MatrixDescriber *matrix, ArrayDescriber *rspArr){
+	register int i;
+	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
+	printf("+---------------+---------------+------------------+\n");
+	printf("%c  PRIM. ELEM.\t%c NUM. DA DIAG.\t%c       SOMA\t   %c\n",'|','|','|','|');
+    for(i = 0; i < matrix->diagNum; i++){
+    	Coords c;
+    	diagNumToCoord(*matrix, i, &c);
+        printf("%c(%3d,%3d)\t%c\t%4d\t%c\t%.7g\t   %c\n",'|',c.mpos, c.npos,'|', i,'|', rspArr->data[i].rsp,'|');
+	}														   +						
+	printf("+---------------+---------------+------------------+\n");
+}
 
 

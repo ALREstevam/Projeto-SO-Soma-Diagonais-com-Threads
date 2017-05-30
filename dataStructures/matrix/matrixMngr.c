@@ -50,7 +50,7 @@ bool coordIsInsideMatrix(MatrixDescriber mx, Coords pos){
 }
 
 //Função que dada uma matriz e uma coordenada retorna a coordenada do próximo elemento no sentido da diagonal principal
-bool getNextElementPositionMdiags(MatrixDescriber mxd, Coords * excCoord){
+bool getNextElemPos(MatrixDescriber mxd, Coords * excCoord){
     excCoord->npos++;
     excCoord->mpos++;
 
