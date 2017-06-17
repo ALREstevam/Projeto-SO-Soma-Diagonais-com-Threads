@@ -1,12 +1,12 @@
 CC     = gcc
 RM     = rm -f
 OBJS   = main.o \
-         thread/thread.o \
-         thread/callThread.o \
-         file/fileMngr.o \
-         dataStructures/array/arrayMngr.o \
-         dataStructures/matrix/matrixMngr.o \
-         util/util.o
+         Thread/thread.o \
+         Thread/callThread.o \
+         File/fileMngr.o \
+         dataStructures/Matrix/matrixMngr.o \
+         dataStructures/Array/arrayMngr.o \
+         Util/util.o
 
 LIBS   = -lpthread
 CFLAGS =
@@ -24,24 +24,24 @@ clean-after:
 projso.exe: $(OBJS)
 	$(CC) -Wall -s -o $@ $(OBJS) $(LIBS)
 
-main.o: main.c util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h thread/thread.h file/fileMngr.h thread/callThread.h
+main.o: main.c Util/util.h datadefine.h dataStructures/Array/arrayMngr.h dataStructures/Matrix/matrixMngr.h Thread/thread.h File/fileMngr.h Thread/callThread.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-thread/thread.o: thread/thread.c thread/thread.h util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h
+Thread/thread.o: Thread/thread.c Thread/thread.h Util/util.h datadefine.h dataStructures/Matrix/matrixMngr.h dataStructures/Array/arrayMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-thread/callThread.o: thread/callThread.c thread/thread.h util/util.h datadefine.h dataStructures/array/arrayMngr.h dataStructures/matrix/matrixMngr.h file/fileMngr.h
+Thread/callThread.o: Thread/callThread.c Thread/thread.h Util/util.h datadefine.h dataStructures/Array/arrayMngr.h dataStructures/Matrix/matrixMngr.h File/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-file/fileMngr.o: file/fileMngr.c file/fileMngr.h datadefine.h dataStructures/matrix/matrixMngr.h
+File/fileMngr.o: File/fileMngr.c datadefine.h dataStructures/Matrix/matrixMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-dataStructures/array/arrayMngr.o: dataStructures/array/arrayMngr.c datadefine.h
+dataStructures/Matrix/matrixMngr.o: dataStructures/Matrix/matrixMngr.c datadefine.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-dataStructures/matrix/matrixMngr.o: dataStructures/matrix/matrixMngr.c datadefine.h
+dataStructures/Array/arrayMngr.o: dataStructures/Array/arrayMngr.c datadefine.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 
-util/util.o: util/util.c datadefine.h file/fileMngr.h
+Util/util.o: Util/util.c datadefine.h File/fileMngr.h
 	$(CC) -Wall -s -c $< -o $@ $(CFLAGS)
 

@@ -13,33 +13,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e60d2ce4-5aef-4469-a91c-dca7f47d2d79" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/Info/Captura de tela de 2017-05-09 12-45-25.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/Info/info.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Captura de tela de 2017-05-09 11-33-44.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Captura de tela de 2017-05-09 11-33-58.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Captura de tela de 2017-05-09 11-34-10.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Captura de tela de 2017-05-09 11-34-20.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Captura de tela de 2017-05-09 11-34-32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - muitas threads/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - uma thread/Captura de tela de 2017-05-09 11-39-29.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - uma thread/Captura de tela de 2017-05-09 11-40-03.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - uma thread/Captura de tela de 2017-05-09 11-43-54.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/muitas matrizes - uma thread/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Captura de tela de 2017-05-09 12-39-25.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Captura de tela de 2017-05-09 12-39-37.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Captura de tela de 2017-05-09 12-39-46.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Captura de tela de 2017-05-09 12-40-02.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Captura de tela de 2017-05-09 12-40-09.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/Fotos execução algorítmo/uma matriz - uma thread/Thumbs.db" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/infoData - Copia.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/infoData.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/out.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/out1.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/_oldData/out2.csv" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projso.exe" afterPath="$PROJECT_DIR$/projso.exe" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dataStructures/matrix/matrixMngr.c" afterPath="$PROJECT_DIR$/dataStructures/matrix/matrixMngr.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datadefine.h" afterPath="$PROJECT_DIR$/datadefine.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dataStructures/matrix/matrixMngr.h" afterPath="$PROJECT_DIR$/dataStructures/matrix/matrixMngr.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.c" afterPath="$PROJECT_DIR$/main.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out.txt" afterPath="$PROJECT_DIR$/out.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/projso.layout" afterPath="$PROJECT_DIR$/projso.layout" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thread/callThread.c" afterPath="$PROJECT_DIR$/thread/callThread.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/thread/thread.c" afterPath="$PROJECT_DIR$/thread/thread.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/util.c" afterPath="$PROJECT_DIR$/util/util.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/util/util.h" afterPath="$PROJECT_DIR$/util/util.h" />
     </list>
     <ignored path="Projeto Threads.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -59,7 +42,7 @@
     <favorites_list name="Projeto Threads" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,7 +56,7 @@
       <file leaf-file-name="arrayMngr.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dataStructures/array/arrayMngr.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-323">
+            <state relative-caret-position="-306">
               <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
@@ -83,7 +66,7 @@
       <file leaf-file-name="datadefine.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/datadefine.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
+            <state relative-caret-position="561">
               <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
@@ -93,8 +76,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-147">
-              <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+            <state relative-caret-position="238">
+              <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -103,7 +86,7 @@
       <file leaf-file-name="callThread.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thread/callThread.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-905">
+            <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -113,7 +96,7 @@
       <file leaf-file-name="thread.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/thread/thread.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1326">
+            <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -123,8 +106,8 @@
       <file leaf-file-name="matrixMngr.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataStructures/matrix/matrixMngr.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+            <state relative-caret-position="1530">
+              <caret line="91" column="16" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -301,25 +284,25 @@
     <frame x="61" y="-8" width="1313" height="784" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980725" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24980725" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3189911" sideWeight="0.4969325" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33082706" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.319403" sideWeight="0.5030675" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33082706" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.319403" sideWeight="0.5030675" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3189911" sideWeight="0.4969325" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -361,6 +344,70 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataStructures/array/arrayMngr.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datadefine.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thread/callThread.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/thread/thread.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataStructures/matrix/matrixMngr.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1530">
+          <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/util.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/util/util.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -379,15 +426,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-147">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+        <state relative-caret-position="238">
+          <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/thread/callThread.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-905">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -395,7 +442,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/thread/thread.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1326">
+        <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -403,15 +450,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dataStructures/matrix/matrixMngr.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+        <state relative-caret-position="1530">
+          <caret line="91" column="16" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datadefine.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
+        <state relative-caret-position="561">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
@@ -419,7 +466,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dataStructures/array/arrayMngr.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
+        <state relative-caret-position="-306">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>

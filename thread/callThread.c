@@ -4,14 +4,14 @@
 #include <pthread.h>
 #include <unistd.h>
 #include "thread.h"
-#include "../util/util.h"
+#include "../Util/util.h"
 #include "../datadefine.h"
-#include "../dataStructures/array/arrayMngr.h"
-#include "../dataStructures/matrix/matrixMngr.h"
-#include "../file/fileMngr.h"
+#include "../dataStructures/Array/arrayMngr.h"
+#include "../dataStructures/Matrix/matrixMngr.h"
+#include "../File/fileMngr.h"
 
 
-void execMethod_a(Input in, DataCollector *rsp){
+void execMethod_a(Input in, DataCollector *rsp, bool printMatrix, bool printOutput, bool printThreadInfo){
 	rsp->requiredThreads = 0;
 	rsp->usedThreads = 0;
 	rsp->createdTheads = 0;
@@ -43,34 +43,42 @@ void execMethod_a(Input in, DataCollector *rsp){
 	targs.rspArr = &rspArr;
 	targs.lock = &lock;
 	targs.contDiag = &diagNum;
-		
+	
+	if(printMatrix){
+		printMatrixOnScreen(matrix);
+	}
 	
 	
 	for(i = 0; i < in.numThreads; i++){
-		createdThreads++;
 		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc_meth1, &targs);	
 	}
 	
 	for(i = 0; i < createdThreads; i++){
 		pthread_join(tidArr.data[i].tid, (void**)&proc);
-		
-		printf("[ THREAD  %3d ][SOMAS: %6d]", i, *(proc));
-		for(j = 0; j < ( 100*(*(proc)/ (in.matrixm*in.matrixn))); j++){
-			printf("#");
+		if(*proc != 0){
+			rsp->usedThreads++;
 		}
 		
-		printf("\n");
-		
-		if(*(proc)!= 0){
-			(rsp->usedThreads) += 1.0;
+		if(printThreadInfo){
+			printf("[ THREAD  %3d ][SOMAS: %6d]", i, *(proc));
+			int procPercent = ((*proc)/ (in.matrixm*in.matrixn))*100;
+			
+			for(j = 0; j < procPercent ; j++){
+				printf("#");
+			}
+			printf("\n");
+			if(*(proc)!= 0){
+				(rsp->usedThreads) += 1.0;
+			}
 		}
-		
 		free(proc);
 	}
 	pthread_mutex_destroy(&lock);//destruindo o mutex	
 	arrayFloatToFile(rspArr, defaultOutputPath);
 	
-	OutputSum(&matrix, &rspArr);
+	if(printOutput){
+		OutputSumToUser(&matrix, &rspArr);
+	}
 	
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
@@ -84,7 +92,11 @@ void execMethod_a(Input in, DataCollector *rsp){
 }
 
 
-void execMethod_b(Input in, DataCollector *rsp){	
+
+//########################################################################333333
+
+
+void execMethod_b(Input in, DataCollector *rsp, bool printMatrix, bool printOutput, bool printThreadInfo){	
 	unsigned short register int i, j;
 	unsigned short int *proc = 0;
 	
@@ -103,6 +115,11 @@ void execMethod_b(Input in, DataCollector *rsp){
     fileToMatrix(matrix, defaultInputPath);
 
     
+    if(printMatrix){
+		printMatrixOnScreen(matrix);
+	}
+    
+    
 	//Alocando na memória espaço para o argumento das threads
 	ThreadArgsInfo_m2 * tinfoptr = (ThreadArgsInfo_m2*) malloc(in.numThreads * sizeof(ThreadArgsInfo_m2));
 	if(tinfoptr == NULL){
@@ -113,42 +130,51 @@ void execMethod_b(Input in, DataCollector *rsp){
 	//Para cada thread
     for(i = 0; i < in.numThreads; i++){
 		//Inicializando os argumentos das threads
-		tinfoptr[i].threadNum = (unsigned short int)i;
+		tinfoptr[i].threadNum = i;
         tinfoptr[i].mx = &matrix;
     	tinfoptr[i].rspArr = &rspArr;
-    	tinfoptr[i].totThreads = (unsigned int)in.numThreads;
+    	tinfoptr[i].totThreads = in.numThreads;
         
         //Criando thread
 		pthread_create(&(tidArr.data[i].tid), NULL, threadSumFunc_meth2, &tinfoptr[i]);
-		printf("CREATE: %ld\n", tidArr.data[i].tid);
-	
     }
 
-	for(i = 0; i < in.numThreads; i++){
-		pthread_join(tidArr.data[i].tid, (void**)proc);		
-		/*printf("[ THREAD  %3d ][SOMAS: %6d]", i, *(proc));
-		for(j = 0; j < ( 100*(*(proc)/ (in.matrixm*in.matrixn))); j++){
-			printf("#");
+	for(i = 0; i < in.numThreads; i++){	
+		pthread_join(tidArr.data[i].tid, (void**)&proc);
+		if(*proc != 0){
+			rsp->usedThreads++;
 		}
-		printf("\n");
-		
-		if(*(proc)!= 0){
-			(rsp->usedThreads) += 1.0;
-		}*/
+		if(printThreadInfo){
+			//printf("[ THREAD  %3d ][SOMAS: %6d]", i, *(proc));
+			int procPercent = ((*proc)/ (in.matrixm*in.matrixn))*100;
+			
+			for(j = 0; j < procPercent ; j++){
+				printf("#");
+			}
+			printf("\n");
+			if(*(proc)!= 0){
+				(rsp->usedThreads) += 1.0;
+			}
+		}
 		
 		free(proc);
 	}
 	
 
-	OutputSum(&matrix, &rspArr);
-	
-	
+	if(printOutput){
+	//	OutputSumToUser(&matrix, &rspArr);
+	}
+		
     arrayFloatToFile(rspArr, defaultOutputPath);
- 
-    
+
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
  	deleteArray(&rspArr);
 	deleteArray(&tidArr);
  	free(tinfoptr);
+ 	
+ 	rsp->requiredThreads = in.numThreads;
+	rsp->createdTheads = in.numThreads;
+	rsp->m = in.matrixm;
+	rsp->n = in.matrixn;
 }

@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "fileMngr.h"
 #include "../datadefine.h"
-#include "../dataStructures/matrix/matrixMngr.h"
+#include "../dataStructures/Matrix/matrixMngr.h"
 
 //Parâmetros
 static const float fillElement 				= 1;

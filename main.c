@@ -57,81 +57,133 @@ pertence à matriz.
 #include <time.h>
 
 //Incluindo bibliotecas criadas
-#include "util/util.h"//Biblioteca com funções de utilidades diversas
+#include "Util/util.h"//Biblioteca com funções de utilidades diversas
 #include "datadefine.h"//Definição de dados (variáveis globais, defines e tipos de dados novos)
-#include "dataStructures/array/arrayMngr.h"//Biblioteca para gerenciar o tipo de vetor usado
-#include "dataStructures/matrix/matrixMngr.h"//Biblioteca para gerenciar o tipo de matriz usada
-#include "thread/thread.h"//Biblioteca contendo funções executadas por threads
-#include "file/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
-#include "thread/callThread.h"
+#include "dataStructures/Array/arrayMngr.h"//Biblioteca para gerenciar o tipo de vetor usado
+#include "dataStructures/Matrix/matrixMngr.h"//Biblioteca para gerenciar o tipo de matriz usada
+#include "Thread/thread.h"//Biblioteca contendo funções executadas por threads
+#include "File/fileMngr.h"//Bilioteca para definir gerenciamento dos arquivos usados
+#include "Thread/callThread.h"
 
 
 
 
-int main(){
-	
-	Input in = inputFromUser();
-	DataCollector dt;
+
+int nomain(){
+	Input in /*= inputFromUser()*/;
+	DataCollector dc;
 	time_t tstart, tend;
+	double timeTaken, med;
+	unsigned int option, tmin, tmax, loop;
+	register int i, j;
+	
+	
+	do{
+		printf("DIAGONAIS PRINCIPAIS DE UMA MATRIZ\n");
+		printf("1. Inserir m, n e quantidade de threads\n");
+		printf("2. Coleta de dados: repetir x vezes para 1, 2, 4, 8, 16, 32, 64 ... t threas e guardar média em arquivo\n");
+		scanf("%d", &option);
+	}while(option <= 0 || option > 2);
+
+	switch(option)
+	{
+	case 1:
+		do{
+			printf("1. Usar método 1: uma thread, ao finalizar o processamento irá procurar uma diagonal para processar\n");
+			printf("2. Usar método 2: a quantidade de trabalho a fazer será préviamente dividida entre as threads\n");
+			scanf("%d", &option);
+		}while(option <= 0 || option > 2);
+		
+		in = inputFromUser();
+		
+		if(option == 1){
+			tstart = clock();
+			execMethod_a(in, &dc, false, true, true);
+			tend = clock();
+			timeTaken = difftime(tstart, tend);
+		}else{
+			tstart = clock();
+			execMethod_b(in, &dc, false, true, true);
+			tend = clock();
+			timeTaken = difftime(tstart, tend);
+		}
+		
+		printf("Tempo gasto: %lf ms\n", timeTaken);
+		
+		
+		break;
+	case 2:
+		do{
+			printf("1. Usar método 1: uma thread, ao finalizar o processamento irá procurar uma diagonal para processar\n");
+			printf("2. Usar método 2: a quantidade de trabalho a fazer será préviamente dividida entre as threads\n");
+			scanf("%d", &option);
+		}while(option <= 0 || option > 2);
+		
+		printf("Quantidade inicial de threads: ");
+		scanf("%d", &tmin);
+		
+		printf("Quantidade final de threads: ");
+		scanf("%d", &tmax);
+		
+		printf("Loops por thread: ");
+		scanf("%d", &loop);
+		
+		printf("Matriz m: ");
+		scanf("%d", &in.matrixm);
+		
+		printf("Matriz n: ");
+		scanf("%d", &in.matrixn);
+		
+		
+		
+		FILE * data = fopen("data.csv", "w");
+		fprintf(data, "TEMPO MÉDIO; THREADS; LOOPS; M; N\n");
+		
+		for(i = tmin; i < tmax; i*=2){
+			med = 0;
+			for(j = 0; j < loop; j++){
+				
+				in.numThreads = i;
+				
+				if(option == 1){
+					tstart = clock();
+					execMethod_a(in, &dc, true, true, true);
+					tend = clock();
+					timeTaken = difftime(tstart, tend);
+				}else{
+					tstart = clock();
+					execMethod_b(in, &dc, true, true, true);
+					tend = clock();
+					timeTaken = difftime(tstart, tend);
+				}
+				med += timeTaken;
+			}
+			
+			fprintf(data,"%s; %d; %d; %d %d\n", dotToCommaDouble(med/loop), in.numThreads, loop, in.matrixm, in.matrixn);
+		}
+		
+
+		break;
+	}
+	return 0;
+}
+
+	
+	
+int main(){
+	Input in = inputFromUser();
+	DataCollector dc;
 	double timeTaken;
+	time_t tstart, tend;
 	
 	tstart = clock();
-	//
-		//execMethod_b(in, &dt);
-		execMethod_a(in, &dt);
-	//
+	execMethod_a(in, &dc, false, true, true);
 	tend = clock();
-	timeTaken = difftime(tend, tstart);
-	
-	printf("Tempo: %lf\n", timeTaken);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*unsigned int auxm, auxn, numThreads, threadCount;
-	unsigned short register int i;
-	int loops = 2;
-	double med =0, medUsedThrd=0, medCreatedThrd=0;
-	DataCollector rsp;
-	
-	FILE * fl1 = fopen("med.csv", "w");
-	FILE * fl2 = fopen("thrd.csv", "w");
+	timeTaken = timediff(tstart, tend);
+					
+	printf("%f\n", timeTaken);
 
-	auxm = 50;
-	auxn = 50;
-	numThreads = default_NumThreads;
-	
-	//for(threadCount = 1; threadCount < 4096; threadCount *= 2){
-	for(threadCount = 10; threadCount < 11; threadCount *= 2){
-		for(i = 1; i < loops; i++){
-			
-			exec(threadCount, auxm, auxn, &rsp);
-			//fprintf(fl2,"TEMPO;%d;M;%d;N;%d;REQ_THRD;%d;USD_THRD;%s\n",dotToCommaDouble(rsp.elapsedTime),rsp.m, rsp.n, rsp.requiredThreads, rsp.usedThreads);
-			fprintf(fl2,"MxN;%dx%d;TIME;%s;REQ_T;%d;CREA_T;%d;USED_T;%d\n",rsp.m,rsp.n,dotToCommaDouble(rsp.elapsedTime), rsp.requiredThreads, rsp.createdTheads, rsp.usedThreads);
-			med += rsp.elapsedTime;
-			medUsedThrd = (double) rsp.usedThreads + medUsedThrd;
-			medCreatedThrd = (double) rsp.createdTheads + medCreatedThrd;
-			printf("| %03d |\n",i);
-	   }
-		
-		med = med/ loops;
-		medUsedThrd = medUsedThrd/ loops;
-		medCreatedThrd = medCreatedThrd / loops;
-		printf("\n----------------------------------------------------\n");
-		printf("[ TEMPO MEDIO: %s ms | THREADS: %03d | CREATED_T %s USED_T %s]", dotToCommaDouble(med), threadCount, dotToCommaDouble(medCreatedThrd), dotToCommaDouble(medUsedThrd));
-		printf("\n----------------------------------------------------\n");
-		
-		fprintf(fl1,"THREADS;%d;TEMPO;%s;LOOPS;%d;AVG_THRD_C;%s;AVG_THRD_U;%s\n",threadCount, dotToCommaDouble(med),loops,dotToCommaDouble(medCreatedThrd),dotToCommaDouble(medUsedThrd) );
-		med = 0;
-		medUsedThrd = 0;
-		medCreatedThrd = 0;
-		
-	}*/
 	return 0;
+		
 }
 

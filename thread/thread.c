@@ -4,43 +4,20 @@
 #include <pthread.h>
 #include <unistd.h>
 #include "thread.h"
-#include "../util/util.h"
+#include "../Util/util.h"
 #include "../datadefine.h"
-#include "../dataStructures/array/arrayMngr.h"
-#include "../dataStructures/matrix/matrixMngr.h"
+#include "../dataStructures/Matrix/matrixMngr.h"
+#include "../dataStructures/Array/arrayMngr.h"
 
 
 //FUNÇÃO PARA SOMA USANDO THREAD
-/**
- * ENTRADA: essa função recebe um struct de argumento contendo
- * 	-Um descritor da matriz a ser feito o cálculo
- * 	-Um mutex
- * 	-Um ponteiro para variável/região crítica para controlar qual diagonal processar
- * 
- * SAÍDA: essa função retorna um unsigned int contendo o número de somas feitas pela thread
- * 	-Somas feitas
- * 
- * 
- * Funcionamento:
- * 	Cada thread irá entrar na fila para ter acesso à região crítica dando down no mutex
- * 	ao entrar na região crítica a thread fará uma cópia da variável que indica qual a próxima thread a 
- *	processar, como a thread processará esta diagonal, soma um ao valor na região crítica para a 
- *  próxima thread cacular a próxima diagonal que não foi processada ou que não está sendo processada
- * 	por nenhuma thread.
- * 
- * 	Ao obter o número da diagonal a ser processada, a thread irá usá-lo numa função que fará a conversão
- * deste valor para as coordenadas do primeiro elemento dessa diagonal na matriz de entrada
- * então enquanto o próximo valor fizer parte da matriz, a thread irá, sucessivamente somar os valores
- * de cada diagonal, salvando o resultado na posição vet[<número da thread processada>]
- */
 
 void * threadSumFunc_meth1(void * args){
 	ThreadArgsInfo_m1 * tinfo = (ThreadArgsInfo_m1*) args;//Convertendo argumentos para argumentos de thread
 	unsigned short int diagProcess;//guardar número da diagonal atual
 	Coords crds;//coordenadas (auxiliar)
 	unsigned int * contProcess = (unsigned int *) malloc(sizeof(unsigned int));//Alocando valor de retorno
-	
-	*(contProcess) = 0;
+	*contProcess = 0;
 	float sum, rsp;//soma, auxiliar
 	
 	//PEGAR UMA DIAGONAL PARA PROCESSAR
@@ -70,46 +47,38 @@ void * threadSumFunc_meth1(void * args){
 		}
 		tinfo->rspArr->data[diagProcess].rsp = sum;//guardando soma da diagonal processada
 	}
-	//printf("<%hu>\n", *contProcess);
 	pthread_exit(contProcess);//terminando a thread
     return NULL;
 }
-////////////////////////////////////////////////////////////////////////////////
+
+
+//#############################################################################################
 
 
 void * threadSumFunc_meth2(void * args){
-	register int sumCount = 0, elementCount = 0;
 	unsigned int * contProcess = (unsigned int *) malloc(sizeof(unsigned int));//Alocando valor de retorno
-    ThreadArgsInfo_m2 *targs = (ThreadArgsInfo_m2*)args;//Convertendo os argumentos da thread
-    
-	MatrixDescriber mxa = *(targs->mx);//Colocando em uma variável para deixar mais curto
+    *contProcess = 0;
+	ThreadArgsInfo_m2 *targs = (ThreadArgsInfo_m2*)args;//Convertendo os argumentos da thread
     unsigned int jmp;//Tamanho do pulo
-    int numThreads = targs->totThreads;//Quantidade de threads
-    int numDiag = mxa.diagNum;//Quantidade de diagonais
+
     Coords coordrsp;
-	
     float sum, rsp;
 
-    for(jmp = targs->threadNum; jmp <= numDiag; (jmp+=numThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
-        printf(">%d \n", targs->threadNum);
-        
-		if(!diagNumToCoord(mxa, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
-			getElement(mxa, coordrsp, &sum);
+    for(jmp = targs->threadNum; jmp <= targs->mx->diagNum; (jmp += targs->totThreads)){//Cada thread sempre processará diagonais alternadas com o mesmo tamanho
+   	   
+		if(!diagNumToCoord(*targs->mx, jmp, &coordrsp)){//convertendo número da diagonal para o primeiro elemento
 			continue;
-			printf("#%d \n", targs->threadNum);
 		}
-        
-        while(getNextElemPos(mxa, &coordrsp)){//enquanto existir um próximo elemento na diagonal
-            getElement(mxa, coordrsp, &rsp);//acessando elemento
+		getElement(*targs->mx, coordrsp, &sum);
+		*contProcess++;
+        while(getNextElemPos(*targs->mx, &coordrsp)){//enquanto existir um próximo elemento na diagonal
+            getElement(*targs->mx, coordrsp, &rsp);//acessando elemento
 			sum += rsp;//adicionando elemento na soma
-			printf("*%d \n", targs->threadNum);
+			*(contProcess)++;
         }
 
         targs->rspArr->data[jmp].rsp = sum;//gravando resultado na matriz de resultado
-		sumCount++;
     }
-    *(contProcess) = sumCount;
     pthread_exit(contProcess);//terminando a thread
     return NULL;	
 }
-

@@ -2,7 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include "../datadefine.h"
-#include "../file/fileMngr.h"
+#include "../File/fileMngr.h"
 #include <pthread.h>
 
 void strsubstchar(char * source, char find, char replace){
@@ -59,14 +59,17 @@ char * dotToCommaDouble(double num){
 
 //Função que calcula a diferença de tempo entre dois horários
 double timediff(clock_t t1, clock_t t2){
-    double elapsed;
-    elapsed = ((double)(t2 - t1)) / (CLOCKS_PER_SEC * 1000);
-    return elapsed;
+	if(t1 > t2){
+		return ((double)(t1 - t2)) / (CLOCKS_PER_SEC * 1000);
+	}else{
+		return ((double)(t2 - t1)) / (CLOCKS_PER_SEC * 1000);
+	}
 }
 
 void pauseMsg(){
-	printf("\nPressione enter para continuar...\n");
+	printf("\nPressione enter para continuar...");
 	getchar();
+	printf("\n");
 }
 
 
@@ -94,7 +97,7 @@ Input inputFromUser(){
 	return rsp;
 }
 
-void OutputSum(MatrixDescriber *matrix, ArrayDescriber *rspArr){
+void OutputSumToUser(MatrixDescriber *matrix, ArrayDescriber *rspArr){
 	register int i;
 	printf("\t\tIMPRIMINDO RESULTADOS\n\n");
 	printf("+---------------+---------------+------------------+\n");

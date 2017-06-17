@@ -16,27 +16,27 @@
 	<Files>
 		<File Name="main.c"/>
 		<File Name="datadefine.h"/>
-		<Folder Name="thread">
+		<Folder Name="Thread">
 			<File Name="thread.c"/>
 			<File Name="thread.h"/>
 			<File Name="callThread.c"/>
 			<File Name="callThread.h"/>
 		</Folder>
-		<Folder Name="file">
+		<Folder Name="File">
 			<File Name="fileMngr.c"/>
 			<File Name="fileMngr.h"/>
 		</Folder>
 		<Folder Name="dataStructures">
-			<Folder Name="array">
-				<File Name="arrayMngr.c"/>
-				<File Name="arrayMngr.h"/>
-			</Folder>
-			<Folder Name="matrix">
+			<Folder Name="Matrix">
 				<File Name="matrixMngr.c"/>
 				<File Name="matrixMngr.h"/>
 			</Folder>
+			<Folder Name="Array">
+				<File Name="arrayMngr.c"/>
+				<File Name="arrayMngr.h"/>
+			</Folder>
 		</Folder>
-		<Folder Name="util">
+		<Folder Name="Util">
 			<File Name="util.h"/>
 			<File Name="util.c"/>
 		</Folder>

@@ -1,9 +1,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "fileMngr.h"
 #include "../datadefine.h"
-#include "../dataStructures/matrix/matrixMngr.h"
+#include "../dataStructures/Matrix/matrixMngr.h"
 
 
 //Função que faz leitura a partir de um arquivo coloca os valores lidos em uma matriz

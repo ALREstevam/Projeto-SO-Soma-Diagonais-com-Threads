@@ -1,5 +1,5 @@
-/*
-*	Parte do programa responsï¿½vel por gerenciar a criaï¿½ï¿½o, manipulaï¿½ï¿½o e exclusï¿½o
+/**
+*	Biblioteca responsável por gerenciar a criação, manipulção e exclusão
 *	de matrizes
 */
 #include <stdio.h>
@@ -8,7 +8,7 @@
 #include "../../datadefine.h"
 
 
-//Funï¿½ï¿½o para criar uma matriz a partir dos valores das m linhas e n colunas
+//Função para criar uma matriz a partir dos valores das m linhas e n colunas
 bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
 
     matrix->diagNum = (m + n) -1;
@@ -18,8 +18,6 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
     matrix->data = malloc(m * sizeof(float*));
     
     if(matrix->data == NULL){
-		//printf("Erro 1 ao alocar matriz\n");
-		
 		fprintf(stderr, "Erro 1 ao alocar matriz\n");
 		exit(-1);
 		getchar();
@@ -41,7 +39,7 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
     return true;
 }
 
-//Funï¿½ï¿½o para verificar se uma coordenada existe dentro de uma matriz
+//Função para verificar se uma coordenada existe dentro de uma matriz
 bool coordIsInsideMatrix(MatrixDescriber mx, Coords pos){
     if(pos.mpos >= mx.m || pos.npos >= mx.n){
         return false;
@@ -49,7 +47,7 @@ bool coordIsInsideMatrix(MatrixDescriber mx, Coords pos){
     return true;
 }
 
-//Funï¿½ï¿½o que dada uma matriz e uma coordenada retorna a coordenada do prï¿½ximo elemento no sentido da diagonal principal
+//Função que dada uma matriz e uma coordenada retorna a coordenada do práximo elemento no sentido da diagonal principal
 bool getNextElemPos(MatrixDescriber mxd, Coords * excCoord){
     excCoord->npos++;
     excCoord->mpos++;
@@ -63,17 +61,20 @@ bool getNextElemPos(MatrixDescriber mxd, Coords * excCoord){
     return true;
 }
 
-//Funï¿½ï¿½o que retorna um elemento da matriz dadas suas coordenadas
-void getElement(MatrixDescriber mxd, Coords coord, float *rsp){
-    /*if(!coordIsInsideMatrix(mxd, coord)){
+//Função que retorna um elemento da matriz dadas suas coordenadas
+bool getElement(MatrixDescriber mxd, Coords coord, float *rsp){
+    if(!coordIsInsideMatrix(mxd, coord)){
+    	*rsp = -100;
         return false;
-    }*/
+    }
     //int element = *(*(table+row-1)+column-1);
     //*(rsp) = mxd.data[coord.mpos][coord.npos];
-    *(rsp) = *(*(mxd.data + coord.mpos)+coord.npos);
+    //*(rsp) = *(*(mxd.data + coord.mpos)+coord.npos);
+    *(rsp) = mxd.data[coord.mpos][coord.npos];
+    return true;
 }
 
-//Funï¿½ï¿½o que converte o nï¿½mero de uma diagonal para suas coordenadas
+//Função que converte o número de uma diagonal para suas coordenadas
 bool diagNumToCoord(MatrixDescriber mxd, unsigned short int coordNum, Coords *rsp){
     if(coordNum > mxd.diagNum-1 || coordNum < 0){
         return false;
@@ -92,7 +93,7 @@ bool diagNumToCoord(MatrixDescriber mxd, unsigned short int coordNum, Coords *rs
 }
 
 
-//Funï¿½ï¿½o que preenche toda a matriz com um valor inserido
+//Função que preenche toda a matriz com um valor inserido
 void fillMatrix(MatrixDescriber mx, float fillValue){
     register int i, j;
     for(i = 0; i < mx.m; i++){
@@ -101,7 +102,7 @@ void fillMatrix(MatrixDescriber mx, float fillValue){
         }
     }
 }
-//Funï¿½ï¿½o que preenche toda a matriz com valores aleatï¿½rios
+//Função que preenche toda a matriz com valores aleatórios
 void fillMatrixWithRandom(MatrixDescriber mx){
 	register int i, j;
     for(i = 0; i < mx.m; i++){
@@ -111,7 +112,7 @@ void fillMatrixWithRandom(MatrixDescriber mx){
     }
 }
 
-//Funï¿½ï¿½o que grava numa matriz um valor dando suas coordenadas
+//Função que grava numa matriz um valor dando suas coordenadas
 bool setElement(MatrixDescriber mx, Coords pos, float value){
     if(!coordIsInsideMatrix(mx, pos)){
         return false;
@@ -121,7 +122,7 @@ bool setElement(MatrixDescriber mx, Coords pos, float value){
     return true;
 }
 
-//Funï¿½ï¿½o que remove uma matriz da memï¿½ria
+//Função que remove uma matriz da memória
 void deleteMatrix(MatrixDescriber *mx){
     register int i;
     for(i = 0; i < mx->m; i++){
@@ -134,8 +135,8 @@ void deleteMatrix(MatrixDescriber *mx){
     
 }
 
-//Funï¿½ï¿½o que imprime os valores guardados em uma matriz
-void printMatrix(MatrixDescriber mx){
+//Função que imprime os valores guardados em uma matriz
+void printMatrixOnScreen(MatrixDescriber mx){
     register int i, j;
     for(i = 0; i < mx.m; i++){
         for(j = 0; j < mx.n; j++){
