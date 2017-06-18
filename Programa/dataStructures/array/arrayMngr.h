@@ -1,5 +1,5 @@
-#ifndef ARRAYMNGR_H
-#define ARRAYMNGR_H
+#ifndef ARRAYMNGR_H_
+#define ARRAYMNGR_H_
 
 #include <stdbool.h>
 
