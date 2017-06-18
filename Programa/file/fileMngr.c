@@ -70,7 +70,7 @@ void arrayFloatToFileWithBuffer(ArrayDescriber arr, char * filename) {
 	for(i = 0; i < arr.top+1; i++) {
 		snprintf(buffer, 10 * sizeof(char) * sizeof(float), "%.4f ", arr.data[i].rspi.rsp);
 		//fprintf(out, "%f\n", arr.data[i].rspi.rsp);
-		fprintf(out, buffer);
+		fprintf(out, "%s", buffer);
 	}
 
 	fclose(out);
@@ -91,14 +91,14 @@ void fillFileWithValue(char * filename, int qtd, float value) {
 	snprintf(buffer, 10 * sizeof(char) * sizeof(float), "%.3f ", value);//gravando no buffer
 	
 	for(i = 0; i < qtd; i++) {//Gravando repetidamente uma string no arquivo
-		fprintf(fl, buffer);
+		fprintf(fl, "%s", buffer);
 	}
 	
 	fclose(fl);
 	free(buffer);
 }
 
-//Cria um arquivo com valôres pseudoaleatórios entre determinado limite
+//Cria um arquivo com valores pseudoaleatórios entre determinado limite
 void generateRandomFloatFile(char * filename, int qtd) {
 	FILE * fl = fopen(filename, "w");
 	if(fl == NULL) {

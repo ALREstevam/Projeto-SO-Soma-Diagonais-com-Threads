@@ -141,7 +141,7 @@ void OutputSumToUser(MatrixDescriber *matrix, ArrayDescriber *rspArr){
 	for(i = 0; i < matrix->diagNum; i++){
     	Coords c;
     	diagNumToCoord(*matrix, i, &c);
-        printf("\t%c  (%4d,%4d)  %c     %5d     %c %10.5g  \t   %c    %11lu   %c    %9d     %c",vertSepChar,c.mpos, c.npos,vertSepChar, i,vertSepChar, rspArr->data[i].rspi.rsp,vertSepChar, (unsigned long)rspArr->data[i].rspi.tid.p, vertSepChar, rspArr->data[i].rspi.countDiagElem, vertSepChar);
+        printf("\t%c  (%4d,%4d)  %c     %5d     %c %10.5g  \t   %c    %11lu   %c    %9d     %c",vertSepChar,c.mpos, c.npos,vertSepChar, i,vertSepChar, rspArr->data[i].rspi.rsp,vertSepChar, (unsigned long)rspArr->data[i].rspi.tid, vertSepChar, rspArr->data[i].rspi.countDiagElem, vertSepChar);
 	
 		puts("");
 	}					

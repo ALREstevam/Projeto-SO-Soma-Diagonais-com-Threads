@@ -27,8 +27,6 @@ void deleteArray(ArrayDescriber *arr){
 void cleanArray(ArrayDescriber arr){
 	register int i;
 	pthread_t nullt;
-	nullt.p = NULL;
-	nullt.x = 0;
 	
 	UData cleanData;
 	cleanData.tid = nullt;
