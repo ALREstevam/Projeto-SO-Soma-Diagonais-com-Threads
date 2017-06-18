@@ -57,13 +57,7 @@ bool getNextElementPositionMdiags(MatrixDescriber mxd, Coords * excCoord){
 
 //Função que retorna um elemento da matriz dadas suas coordenadas
 void getElement(MatrixDescriber mxd, Coords coord, float *rsp){
-    /*if(!coordIsInsideMatrix(mxd, coord)){
-        return false;
-    }
-    int element = *(*(table+row-1)+column-1);
     *(rsp) = mxd.data[coord.mpos][coord.npos];
-    */
-    *(rsp) = *(*(mxd.data + coord.mpos)+coord.npos);//Uso de ponteiros para maior velocidade
 }
 
 //Função que converte o número de uma diagonal para suas coordenadas
@@ -107,8 +101,7 @@ bool setElement(MatrixDescriber mx, Coords pos, float value){
     if(!coordIsInsideMatrix(mx, pos)){//se coordenada estiver fora da matriz
         return false;
     }
-    //mx.data[pos.mpos][pos.npos] = value;
-    *(*(mx.data + pos.mpos)+pos.npos) = value;
+    mx.data[pos.mpos][pos.npos] = value;
     return true;
 }
 

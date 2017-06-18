@@ -187,7 +187,7 @@ double execmethodA(Input in, bool printResult, bool printMx){
 	
 	//Lendo arquivo de entrada
     if(!fileToMatrix(matrix, in.inputPath)){
-		printf("ATENCAO\nO arquivo de entrada era muito pequeno,\n posicoes vazias foram preenchidas com algum numero\n");
+		printf("ATENCAO!\nO arquivo de entrada era muito pequeno,\nposicoes vazias foram preenchidas com: -1\n");
 	}
 	
 	if(printMx){
