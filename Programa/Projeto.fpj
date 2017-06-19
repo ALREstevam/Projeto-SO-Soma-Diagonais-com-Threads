@@ -2,28 +2,32 @@
 <Project>
 	<Libs Value="-lpthread"/>
 	<Flags Value=""/>
-	<Target Value="projso.exe"/>
+	<Target Value="Projeto.exe"/>
 	<CommandLine Value=""/>
 	<CompilerOptions Value="-Wall -s"/>
 	<DeleteObjectsBefore Value="Yes"/>
 	<DeleteObjectsAfter Value="Yes"/>
-	<DeleteMakefileAfter Value="No"/>
+	<DeleteMakefileAfter Value="Yes"/>
 	<DeleteResourcesAfter Value="Yes"/>
 	<EnableTheme Value="No"/>
 	<RequiresAdmin Value="No"/>
 	<CompilerType Value="C"/>
 	<AppType Value="CONSOLE"/>
 	<Files>
-		<File Name="main.c"/>
-		<File Name="datadefine.h"/>
-		<Folder Name="thread">
-			<File Name="thread.c"/>
-			<File Name="thread.h"/>
-		</Folder>
 		<Folder Name="file">
 			<File Name="fileMngr.c"/>
 			<File Name="fileMngr.h"/>
 		</Folder>
+		<Folder Name="thread">
+			<File Name="thread.c"/>
+			<File Name="thread.h"/>
+		</Folder>
+		<Folder Name="util">
+			<File Name="util.c"/>
+			<File Name="util.h"/>
+		</Folder>
+		<File Name="datadefine.h"/>
+		<File Name="main.c"/>
 		<Folder Name="dataStructures">
 			<Folder Name="array">
 				<File Name="arrayMngr.c"/>
@@ -33,10 +37,6 @@
 				<File Name="matrixMngr.c"/>
 				<File Name="matrixMngr.h"/>
 			</Folder>
-		</Folder>
-		<Folder Name="util">
-			<File Name="util.c"/>
-			<File Name="util.h"/>
 		</Folder>
 	</Files>
 </Project>

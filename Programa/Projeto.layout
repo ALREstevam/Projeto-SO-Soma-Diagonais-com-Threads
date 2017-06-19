@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Layout>
+	<Files>
+		<File Name="main.c" Top="Yes" Tabpos="1" TopLine="187">
+			<Cursor Line="297" Column="5"/>
+		</File>
+		<File Name="util\util.c" Top="No" Tabpos="2" TopLine="88">
+			<Cursor Line="144" Column="1"/>
+		</File>
+	</Files>
+	<Folders>
+		<Folder Name="dataStructures" Expanded="Yes"/>
+	</Folders>
+</Layout>

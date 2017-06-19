@@ -49,7 +49,7 @@ typedef struct{
 /*============================
 	THREAD
 =============================*/
-//Argumentos para thread de soma (método A)
+//Argumentos para thread de soma (solução A)
 typedef struct{
     MatrixDescriber * mx;
     ArrayDescriber *rspArr;
@@ -57,7 +57,7 @@ typedef struct{
     unsigned short int *contDiag;
 }ThreadArgsInfo_A;
 
-//Argumentos para thread de soma (método B)
+//Argumentos para thread de soma (solução B)
 typedef struct{
     MatrixDescriber * mx;
     unsigned short int threadNum;

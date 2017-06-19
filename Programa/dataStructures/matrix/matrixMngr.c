@@ -11,7 +11,7 @@ bool createMatrix(MatrixDescriber *matrix, unsigned int m, unsigned int n){
     matrix->diagNum = (m + n) -1;
     matrix->m = m;
     matrix->n = n;
-
+    
     matrix->data = malloc(m * sizeof(float*));//Alocando vetor para vetor de float
     
     if(matrix->data == NULL){

@@ -13,7 +13,7 @@
 #include "../dataStructures/matrix/matrixMngr.h"
 
 /*==================================================================================
-								THREAD - MÉTODO A
+								THREAD - SOLUÇÃO A
 ===================================================================================*/
 void * threadSumFunc_A(void * args){
 	ThreadArgsInfo_A * tinfo = (ThreadArgsInfo_A*) args;//Convertendo argumentos para argumentos de thread
@@ -51,7 +51,7 @@ void * threadSumFunc_A(void * args){
 }
 
 /*==================================================================================
-								THREAD - MÉTODO B
+								THREAD - SOLUÇÃO B
 ===================================================================================*/
 void * threadSumFunc_B(void * args){
     ThreadArgsInfo_B *targs = (ThreadArgsInfo_B*)args;//Convertendo os argumentos da thread

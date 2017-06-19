@@ -30,24 +30,21 @@ gravados em arquivo.
 #include "file/fileMngr.h"						//Bilioteca para definir gerenciamento dos arquivos usados
 
 
-void repeatmethod(char * dataPath, Input in, char method, int inisize, int addmxfactor);
-void exec(Input in, char method, bool printResult, bool printMx);
+double execB(Input in, bool printResult, bool printMx);
+double execA(Input in, bool printResult, bool printMx);
 
 
 //////////////////// DEFAULT/CONFIGURATION VALUES ///////////////////////////
-const bool generateDataMode 				= false; //<true: ativa modo de geração de dados|false: ativa modo de entrada de dados pelo usuário>
-
 //Dimensões padrão da matriz
 static const int default_M 					= 1000; 
 static const int default_N 					= 1000;
 
-//MÉTODO UTILIZADO <a: método a|b: método b|outro: se generateDataMode ativado, ambos>
+//SOLUÇÃO UTILIZADO <a: SOLUÇÃO a|b: SOLUÇÃO b|outro: se generateDataMode ativado, ambos>
 const char defaultMethod 					= 'c';
 
 #define DEFAULT_INPUT_PATH "in.txt"
-#define DEFAULT_OUTPUT_PATH_A "out_method_A.txt"
-#define DEFAULT_OUTPUT_PATH_B "out_method_B.txt"
-#define DEFAULT_GENERATED_DATA_PATH "data.csv"
+#define DEFAULT_OUTPUT_PATH_A "out_sol_A.txt"
+#define DEFAULT_OUTPUT_PATH_B "out_sol_B.txt"
 ///////////////////////////////////////////////////////////////////////////
 
 
@@ -57,111 +54,26 @@ const char defaultMethod 					= 'c';
 int main(){	
 	Input in;
 	in.inputPath = DEFAULT_INPUT_PATH;
-	
-	if(generateDataMode){
-		in.matrixM = default_M;
-		in.matrixN = default_N;
-		/*in.outputPath = DEFAULT_OUTPUT_PATH_A;
-		repeatmethod(DEFAULT_GENERATED_DATA_PATH, in, 'a', 100, 200);*/
-		in.outputPath = DEFAULT_OUTPUT_PATH_B;
-		repeatmethod(DEFAULT_GENERATED_DATA_PATH, in, 'b', 100, 200);
-		return 0;
-	}else{
-		while(inputFromUser(&in)){
-			if(defaultMethod == 'a'){
-				in.outputPath = DEFAULT_OUTPUT_PATH_A;
-			}else{
-				in.outputPath = DEFAULT_OUTPUT_PATH_B;
-			}
-			 exec(in, defaultMethod, true, (in.matrixN <= 20 ? true : false) );
-			 printf("\n\n\n\n");
-		}
-		return 0;
-	}
-}
-
-double execmethodB(Input in, bool printResult, bool printMx);
-double execmethodA(Input in, bool printResult, bool printMx);
-/*==================================================================================
-					FUNÇÃO PARA GERAR E SALVAR DADOS
-===================================================================================*/
-void repeatmethod(char * dataPath, Input in, char method, int inisize, int addmxfactor){
-	register int threadCount, loopCount, szCount;
-	int threadMax = 16, loopMax = 30, maxMxSz = 1500;
-	
-	fillFileWithValue(in.inputPath, maxMxSz*maxMxSz, 1.1);
-	
-	double elapsed;
-	char * aux;
-	
-	FILE *fl = fopen(dataPath ,"a+");
-	if(fl == NULL){
-		fprintf(stderr, "Erro ao abrir arquivo\n");
-		exit(-2);
-	}
-	
-	fprintf(fl, "THREADS;TIME;M;N;LOOPS;metodo: %c\n", method);
-	
-	
-	for(szCount = inisize; szCount <= maxMxSz; szCount += addmxfactor){
-		in.matrixM = szCount;
-		in.matrixN = szCount;
+	while(inputFromUser(&in)){
 		
-		for(threadCount = 1; threadCount <= threadMax; threadCount *= 2){
-			elapsed = 0;
-			for(loopCount = 0; loopCount < loopMax; loopCount++){
-				in.numThreads = threadCount;
-			    
-			    switch(method)
-				{
-				case 'a':
-					elapsed += execmethodA(in, false, false);	
-					break;
-				default:
-					elapsed += execmethodB(in, false, false);	
-					break;
-				}
-	
-				printf("#%3d [ THREADS: %3d | method: %c] : ( %lf )\n", loopCount, threadCount, method, elapsed);
-			}
-			aux = dotToCommaDouble(elapsed/loopCount);
-			fprintf(fl, "%d;%s;%d;%d;%d;*\n",threadCount, aux, in.matrixM, in.matrixN, loopCount);
-			printf("========================================\n");	
-			printf("###[%d | %c]::[ %lf ] MATRIZ(%d x %d)\n", threadCount, method, elapsed/(loopCount+1), in.matrixM, in.matrixN);
-			printf("========================================\n\n\a");	
-			free(aux);
-		}
-	}
-	fclose(fl);
-}
-
-
-void exec(Input in, char method, bool printResult, bool printMx){
-	switch(method)
-	{
-	case 'a':
-		putDefaultTitle("METODO A", 4);
-		printf("METODO [A] | Tempo gasto: %.3lf\n", execmethodA(in, printResult, printMx));
-		break;
-	case 'b':
-		putDefaultTitle("METODO B", 4);
-		printf("METODO [B] | Tempo gasto: %.3lf\n", execmethodB(in, printResult, printMx));
-		break;
-	default:
 		in.outputPath = DEFAULT_OUTPUT_PATH_A;
-		putDefaultTitle("METODO A", 4);
-		printf("METODO [A] | Tempo gasto: %.3lf\n", execmethodA(in, printResult, printMx));
+		putDefaultTitle("SOLUCAO A",5);
+		execA(in, true, ((in.matrixN <= 20 && in.matrixN < 30) ? true : false));
+
 		in.outputPath = DEFAULT_OUTPUT_PATH_B;
-		putDefaultTitle("METODO B", 4);
-		printf("METODO [B] | Tempo gasto: %.3lf\n", execmethodB(in, printResult, printMx));
-		break;
+		putDefaultTitle("SOLUCAO B",5);
+		execB(in, true, ((in.matrixN <= 20 && in.matrixN < 30) ? true : false));
+		printf("\n\n\n\n");
 	}
+	return 0;
 }
+
+
 
 /*==================================================================================
-								MÉTODO A
+								SOLUÇÃO A
 ===================================================================================*/
-double execmethodA(Input in, bool printResult, bool printMx){	
+double execA(Input in, bool printResult, bool printMx){	
 	//DECLARAÇÃO DE VARIÁVEIS
 	time_t tStart = 0, tEnd = 0;//Declarando relógios
 	
@@ -210,8 +122,7 @@ double execmethodA(Input in, bool printResult, bool printMx){
 	
 	pthread_mutex_destroy(&lock);//destruindo o mutex
 	
-	//arrayFloatToFile(rspArr, in.outputPath);
-	arrayFloatToFileWithBuffer(rspArr, in.outputPath);
+	arrayFloatToFile(rspArr, in.outputPath);//Gravando resultado no arquivo
 	
 	if(printResult){
 		printf("\n");
@@ -220,8 +131,7 @@ double execmethodA(Input in, bool printResult, bool printMx){
 		printThreadWork(rspArr, tidArr, matrix, in.numThreads);
 		printf("\n");
 	}
-	
-	
+
 	
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);
@@ -233,9 +143,9 @@ double execmethodA(Input in, bool printResult, bool printMx){
 	return elapsedTime;
 }
 /*==================================================================================
-								MÉTODO B
+								SOLUÇÃO B
 ===================================================================================*/
-double execmethodB(Input in, bool printResult, bool printMx){
+double execB(Input in, bool printResult, bool printMx){
 	time_t tStart, tEnd;
 	
 	tStart = clock();//DISPARANDO RELÓGIO
@@ -285,6 +195,9 @@ double execmethodB(Input in, bool printResult, bool printMx){
 		pthread_join(tidArr.data[i].tid, NULL);
 	}
 	
+	arrayFloatToFile(rspArr, in.outputPath);
+    //arrayFloatToFileWithBuffer(rspArr, in.outputPath);
+	
 	if(printResult){
 		printf("\n");
 		OutputSumToUser(&matrix, &rspArr);
@@ -293,9 +206,6 @@ double execmethodB(Input in, bool printResult, bool printMx){
 		printf("\n");
 	}
     
-
-    //arrayFloatToFile(rspArr, in.outputPath);
-    arrayFloatToFileWithBuffer(rspArr, in.outputPath);
     
  	//Liberando memória utilizada
  	deleteMatrix(&matrix);

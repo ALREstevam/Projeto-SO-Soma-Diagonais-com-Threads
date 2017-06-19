@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -56,29 +55,6 @@ void arrayFloatToFile(ArrayDescriber arr, char * filename) {
 	fclose(out);
 }
 
-//Função que passa os valores float de um array para um arquivo
-void arrayFloatToFileWithBuffer(ArrayDescriber arr, char * filename) {
-	char * buffer = (char*)malloc(10 * sizeof(char) * sizeof(int));
-	FILE * out = fopen(filename, "w+");
-
-	if(out == NULL) {
-		fprintf(stderr, "Erro ao abrir arquivo para escrita de dados\n");
-		exit(-1);
-	}
-
-	int register i;
-	for(i = 0; i < arr.top+1; i++) {
-		snprintf(buffer, 10 * sizeof(char) * sizeof(float), "%.4f ", arr.data[i].rspi.rsp);
-		//fprintf(out, "%f\n", arr.data[i].rspi.rsp);
-		fprintf(out, "%s", buffer);
-	}
-
-	fclose(out);
-	free(buffer);
-}
-
-
-
 //Cria um arquivo com um valor repetido utilizando um buffer para aumentar a velocidade de gravação
 void fillFileWithValue(char * filename, int qtd, float value) {
 	register int i;
@@ -109,15 +85,3 @@ void generateRandomFloatFile(char * filename, int qtd) {
 		fprintf(fl, "%f ",  ((float)(rand() % 60) / 10.0) * 5);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-

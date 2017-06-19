@@ -8,61 +8,6 @@
 #include <pthread.h>
 
 
-//Recebe uma string e substitui um caractere por outro
-void strsubstchar(char * source, char find, char replace){
-	int i;
-	for(i = 0; source[i] != '\0'; i++){
-		if(source[i] == find){
-			source[i] = replace;
-		}
-	}
-}
-
-//Recebe um float e retorna o número como uma string trocando a vírgula por ponto (útil para gravar dados em um arquivo csv)
-char * dotToCommaFloat(float num){
-	int i, part = (int)num, size;
-	
-	for(i = 0; part != 0; i++){
-		part /= 10;
-	}
-	
-	size = 1 + 5 + i;
-	char * str  = (char*) malloc(size * sizeof(char));
-	
-	sprintf(str, "%.5f", num);
-	
-	for(i = 0; i < size; i++){
-		if(str[i] == '.'){
-			str[i] = ',';
-		}
-	}
-	
-	return str;
-}
-
-//Recebe um double e retorna o número como uma string trocando a vírgula por ponto (útil para gravar dados em um arquivo csv)
-char * dotToCommaDouble(double num){
-	int i, part = (int)num, size;
-	
-	for(i = 0; part != 0; i++){
-		part /= 10;
-	}
-	
-	size = 1 + 10 + i;
-	char * str  = (char*) malloc(size * sizeof(char));
-	
-	sprintf(str, "%.10lf", num);
-	
-	for(i = 0; i < size; i++){
-		if(str[i] == '.'){
-			str[i] = ',';
-		}
-	}
-	
-	return str;
-}
-
-
 //Função que calcula a diferença de tempo entre dois horários
 double timediff(clock_t t1, clock_t t2){
 	if(t1 > t2){
@@ -125,7 +70,7 @@ bool inputFromUser(Input *rsp){
 
 //Auxiliar para tabela
 void tblHSep(){
-	printf("\t+---------------+---------------+------------------+------------------+------------------+\n");
+	printf("\t+---------------+---------------+------------------+------------------+\n");
 }
 
 //Imprime uma tabela com os resultados da soma
@@ -135,13 +80,13 @@ void OutputSumToUser(MatrixDescriber *matrix, ArrayDescriber *rspArr){
 	
 	putDefaultTitle("IMPRIMINDO RESULTADOS", 2);
 	tblHSep();
-	printf("\t%c COORDENADAS DO%c NUMERO DA\t%c  RESULTADO DA\t   %c    THREAD        %c  SOMAS FEITAS    %c\n",vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar);
-    printf("\t%c PRIMEIRO ELEM.%c DIAGONAL \t%c       SOMA\t   %c  RESPONSAVEL     %c   NA DIAGONAL    %c\n",vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar);
+	printf("\t%c COORDENADAS DO%c NUMERO DA\t%c  RESULTADO DA\t   %c  SOMAS FEITAS    %c\n",vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar);
+    printf("\t%c PRIMEIRO ELEM.%c DIAGONAL \t%c       SOMA\t   %c   NA DIAGONAL    %c\n",vertSepChar,vertSepChar,vertSepChar,vertSepChar,vertSepChar);
 	tblHSep();
 	for(i = 0; i < matrix->diagNum; i++){
     	Coords c;
     	diagNumToCoord(*matrix, i, &c);
-        printf("\t%c  (%4d,%4d)  %c     %5d     %c %10.5g  \t   %c    %11lu   %c    %9d     %c",vertSepChar,c.mpos, c.npos,vertSepChar, i,vertSepChar, rspArr->data[i].rspi.rsp,vertSepChar, (unsigned long)rspArr->data[i].rspi.tid, vertSepChar, rspArr->data[i].rspi.countDiagElem, vertSepChar);
+        printf("\t%c  (%4d,%4d)  %c     %5d     %c %10.5g  \t   %c %9d        %c",vertSepChar,c.mpos, c.npos,vertSepChar, i,vertSepChar, rspArr->data[i].rspi.rsp, vertSepChar, rspArr->data[i].rspi.countDiagElem, vertSepChar);
 	
 		puts("");
 	}					
